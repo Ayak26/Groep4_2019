@@ -9,6 +9,9 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.Dimension;
+import java.net.URL;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -16,13 +19,31 @@ import java.awt.Dimension;
  */
 public class HMI {
 
+    boolean variabel_hoofdmenu = true;
+
     public HMI() {
         JFrame hoofdmenu = new JFrame("HMI Applicatie"); //make the frame
         hoofdmenu.setSize(1500, 900);
         hoofdmenu.setLocation(0, 0);
         hoofdmenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         hoofdmenu.setDefaultLookAndFeelDecorated(true);
-        hoofdmenu.setVisible(true);
+        hoofdmenu.setVisible(variabel_hoofdmenu);
+
+        JPanel panel = new JPanel();
+        JButton menuknop = new JButton("Menu");
+        panel.setLayout(null);
+        menuknop.setBounds(0, 0, 100, 60);
+        panel.add(menuknop);
+        hoofdmenu.add(panel);
+
+        Image image = null;
+        try {
+            URL url = new URL("https://image.flaticon.com/icons/png/512/17/17969.png");
+            image = ImageIO.read(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JLabel labelI = new JLabel(new ImageIcon(image));
 
         JButton sorteerRknop = new JButton("Sorteerrobot"); //make all the buttons
         JButton inpakRknop = new JButton("Inpakrobot");
@@ -34,8 +55,18 @@ public class HMI {
         hoofdmenu.add(orderknop);
         hoofdmenu.add(voorraadknop);
 
-        hoofdmenu.add(new JLabel(new ImageIcon("C:\\Users\\Alihan\\Pictures\\icoontjes\\Afbeelding1.png")));
-
+        sorteerRknop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                hoofdmenu.dispose();
+                new Sorteerrobot();
+            }
+        };
+        inpakRknop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                hoofdmenu.dispose();
+                new Inpakrobot();
+            }
+        };
         sorteerRknop.setBounds(300, 500, 200, 30); //set position for buttons
         inpakRknop.setBounds(550, 500, 200, 30);
         orderknop.setBounds(800, 500, 200, 30);
@@ -48,7 +79,5 @@ public class HMI {
     public static void main(String[] args) {
         // TODO code application logic here
         new HMI();
-
     }
 }
-    
