@@ -3,20 +3,25 @@
 #define M1 4
 #define E1 5
 
+// ------ Servo objects ------
 Servo s1;
 Servo s2;
 
-
-const int CLOSED = 90, OPEN = 135;
+// ------ Constants ------
+const int CLOSED = 90, OPEN = 135, INTERVAL_SERVO1 = 600, INTERVAL_SERVO2 = 1200, INTERVAL_CLOSE = 400;
 const byte num_chars = 32;
 
+// ------ variables ------
 char received_chars[num_chars];   // an array to store the received data
 int index_servo1 = 0, index_servo2 = 0;
-int interval_servo1 = 600, interval_servo2 = 1200, interval_close = 400;
 unsigned long timing_servo1[5], timing_servo2[5];
 unsigned long current_time, close_servo1, close_servo2;
 
-bool on = false, new_data = false, servo1 = false, servo2 = false;
+// ------ Flags ------
+bool on = false,
+    new_data = false,   //Communication flag
+    servo1 = false,     //Servo open or not
+    servo2 = false;     //false is closed, true is open
 
 void setup() {
     s1.attach(8);
@@ -43,11 +48,20 @@ void loop() {
     }
 }
 
+/*
+ Controls the speed of the DC motor
+
+ @param PWM the pwm to use as speed
+ */
 void motor(int PWM) {
     analogWrite(E1, PWM);
     digitalWrite(M1, HIGH);
 }
 
+/*
+ Reads the serial input when it is available
+ If there was new data it runs readCommand
+ */
 void serialInput() {
     static byte ndx = 0;
     char end_marker = '\n';
@@ -69,11 +83,16 @@ void serialInput() {
             new_data = true;
         }
     }
-    readCommand();
+    if(new_data) {
+        readCommand();
+        new_data = false;
+    }
 }
 
+/*
+ Reads the command received in serialInput and acts on it
+ */
 void readCommand() {
-    if (new_data) {
         if (strcmp(received_chars, "I") == 0) {
             on = true;
         } else if (strcmp(received_chars, "O") == 0) {
@@ -95,19 +114,20 @@ void readCommand() {
         } else {
             Serial.println("Command unknown");
         }
-        new_data = false;
-    }
 }
 
+/*
+ Looks if servo1 needs to perform an action
+ */
 void checkServo1 () {
     if (servo1) {
-        if ((unsigned long)(current_time - close_servo1) >= interval_close) {
+        if ((unsigned long)(current_time - close_servo1) >= INTERVAL_CLOSE) {
             s1.write(CLOSED);
             servo1 = false;
         }
     } else {
         for (int i = 0; i < 5; i++) {
-            if ((unsigned long)(current_time - timing_servo1[i]) >= interval_servo1 && timing_servo1[i] != 0) {
+            if ((unsigned long)(current_time - timing_servo1[i]) >= INTERVAL_SERVO1 && timing_servo1[i] != 0) {
                 timing_servo1[i] = 0;
                 close_servo1 = current_time;
                 s1.write(OPEN);
@@ -117,15 +137,18 @@ void checkServo1 () {
     }
 }
 
+/*
+ Looks if servo2 needs to perform an action
+ */
 void checkServo2 () {
     if (servo2) {
-        if ((unsigned long)(current_time - close_servo2) >= interval_close) {
+        if ((unsigned long)(current_time - close_servo2) >= INTERVAL_CLOSE) {
             s2.write(CLOSED);
             servo2 = false;
         }
     } else {
         for (int i = 0; i < 5; i++) {
-            if ((unsigned long)(current_time - timing_servo2[i]) >= interval_servo2 && timing_servo2[i] != 0) {
+            if ((unsigned long)(current_time - timing_servo2[i]) >= INTER_VALSERVO2 && timing_servo2[i] != 0) {
                 timing_servo2[i] = 0;
                 close_servo2 = current_time;
                 s2.write(OPEN);
