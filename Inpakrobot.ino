@@ -148,7 +148,7 @@ void checkServo2 () {
         }
     } else {
         for (int i = 0; i < 5; i++) {
-            if ((unsigned long)(current_time - timing_servo2[i]) >= INTER_VALSERVO2 && timing_servo2[i] != 0) {
+            if ((unsigned long)(current_time - timing_servo2[i]) >= INTERVAL_SERVO2 && timing_servo2[i] != 0) {
                 timing_servo2[i] = 0;
                 close_servo2 = current_time;
                 s2.write(OPEN);
