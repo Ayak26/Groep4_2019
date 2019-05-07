@@ -16,11 +16,11 @@ import javax.imageio.ImageIO;
  * @author Alihan
  */
 public class Screen extends JFrame implements ActionListener {
-    private JButton sorteerRknop;
-    private JButton inpakRknop;
-    private JButton orderknop;
-    private JButton voorraadknop;
-    private JButton menuknop;
+    private JButton sortBotButton;
+    private JButton packBotButton;
+    private JButton orderButton;
+    private JButton stockButton;
+    private JButton menuButton;
 
     private JPanel panel;
 
@@ -29,19 +29,18 @@ public class Screen extends JFrame implements ActionListener {
     private Image image;
 
     public Screen() {
-        JFrame hoofdmenu = new JFrame("Screen Applicatie"); //make the frame
         setSize(1500, 900);
         setLocation(0, 0);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setDefaultLookAndFeelDecorated(true);
 
-        menuknop = new JButton("Menu");
-        menuknop.setBounds(0, 0, 100, 60);
+        menuButton = new JButton("Menu");
+        menuButton.setBounds(0, 0, 100, 60);
 
         panel = new JPanel();
         panel.setLayout(null);
-        panel.add(menuknop);
-        hoofdmenu.add(panel);
+        panel.add(menuButton);
+        add(panel);
 
 
         try {
@@ -53,32 +52,32 @@ public class Screen extends JFrame implements ActionListener {
 
         labelI = new JLabel(new ImageIcon(image));
 
-        sorteerRknop = new JButton("Sorteerrobot"); //make all the buttons
-        add(sorteerRknop);
-        sorteerRknop.setBounds(300, 500, 200, 30); //set position for buttons
-        sorteerRknop.addActionListener(this);
+        sortBotButton = new JButton("Sorteerrobot"); //make all the buttons
+        add(sortBotButton);
+        sortBotButton.setBounds(300, 500, 200, 30); //set position for buttons
+        sortBotButton.addActionListener(this);
 
-        inpakRknop = new JButton("Inpakrobot");
-        add(inpakRknop);
-        inpakRknop.setBounds(550, 500, 200, 30);
-        inpakRknop.addActionListener(this);
+        packBotButton = new JButton("Inpakrobot");
+        add(packBotButton);
+        packBotButton.setBounds(550, 500, 200, 30);
+        packBotButton.addActionListener(this);
 
-        orderknop = new JButton("Orders");
-        add(orderknop);
-        orderknop.setBounds(800, 500, 200, 30);
+        orderButton = new JButton("Orders");
+        add(orderButton);
+        orderButton.setBounds(800, 500, 200, 30);
 
-        voorraadknop = new JButton("Voorraad");
-        add(voorraadknop);
-        voorraadknop.setBounds(1050, 500, 200, 30);
+        stockButton = new JButton("Voorraad");
+        add(stockButton);
+        stockButton.setBounds(1050, 500, 200, 30);
 
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == sorteerRknop) {
+        if (e.getSource() == sortBotButton) {
             this.dispose();
 //            new Sorteerrobot();
-        } else if (e.getSource() == inpakRknop) {
+        } else if (e.getSource() == packBotButton) {
             this.dispose();
 //            new Inpakrobot();
         }
