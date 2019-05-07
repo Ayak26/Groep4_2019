@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hmi;
 
 import java.awt.*;
 import javax.swing.*;
@@ -14,12 +13,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- *
  * @author Alihan
  */
 public class HMI {
 
     boolean variabel_hoofdmenu = true;
+    private JButton sorteerRknop;
+    private JButton inpakRknop;
+    private JButton orderknop;
+    private JButton voorraadknop;
 
     public HMI() {
         JFrame hoofdmenu = new JFrame("HMI Applicatie"); //make the frame
@@ -31,6 +33,7 @@ public class HMI {
 
         JPanel panel = new JPanel();
         JButton menuknop = new JButton("Menu");
+
         panel.setLayout(null);
         menuknop.setBounds(0, 0, 100, 60);
         panel.add(menuknop);
@@ -45,10 +48,10 @@ public class HMI {
         }
         JLabel labelI = new JLabel(new ImageIcon(image));
 
-        JButton sorteerRknop = new JButton("Sorteerrobot"); //make all the buttons
-        JButton inpakRknop = new JButton("Inpakrobot");
-        JButton orderknop = new JButton("Orders");
-        JButton voorraadknop = new JButton("Voorraad");
+        sorteerRknop = new JButton("Sorteerrobot"); //make all the buttons
+        inpakRknop = new JButton("Inpakrobot");
+        orderknop = new JButton("Orders");
+        voorraadknop = new JButton("Voorraad");
 
         hoofdmenu.add(sorteerRknop); //add all buttons to the frame
         hoofdmenu.add(inpakRknop);
@@ -60,24 +63,17 @@ public class HMI {
                 hoofdmenu.dispose();
                 new Sorteerrobot();
             }
-        };
+        });
         inpakRknop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 hoofdmenu.dispose();
                 new Inpakrobot();
             }
-        };
+        });
         sorteerRknop.setBounds(300, 500, 200, 30); //set position for buttons
         inpakRknop.setBounds(550, 500, 200, 30);
         orderknop.setBounds(800, 500, 200, 30);
         voorraadknop.setBounds(1050, 500, 200, 30);
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        new HMI();
-    }
 }
