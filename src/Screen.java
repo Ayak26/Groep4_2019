@@ -1,3 +1,4 @@
+package src;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,16 +24,18 @@ public class Screen extends JFrame implements ActionListener {
     private JButton menuButton;
 
     private JPanel panel;
+    private JPanel emptypanel;
 
     private JLabel labelI;
 
     private Image image;
 
     public Screen() {
-        setSize(1500, 900);
-        setLocation(0, 0);
+        setSize(800, 480);
+//        setLocation(0, 0);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setDefaultLookAndFeelDecorated(true);
+//        setDefaultLookAndFeelDecorated(true);
+        setLayout(new GridLayout(2, 4));
 
         menuButton = new JButton("Menu");
         menuButton.setBounds(0, 0, 100, 60);
@@ -40,8 +43,11 @@ public class Screen extends JFrame implements ActionListener {
         panel = new JPanel();
         panel.setLayout(null);
         panel.add(menuButton);
-        add(panel);
-
+//        add(panel);
+        add(new JPanel());
+        add(new JPanel());
+        add(new JPanel());
+        add(new JPanel());
 
         try {
             URL url = new URL("https://image.flaticon.com/icons/png/512/17/17969.png");
@@ -52,23 +58,23 @@ public class Screen extends JFrame implements ActionListener {
 
         labelI = new JLabel(new ImageIcon(image));
 
-        sortBotButton = new JButton("Sorteerrobot"); //make all the buttons
+        sortBotButton = new JButton("Sorteerrobot");
         add(sortBotButton);
-        sortBotButton.setBounds(300, 500, 200, 30); //set position for buttons
+//        sortBotButton.setBounds(300, 500, 200, 30);
         sortBotButton.addActionListener(this);
 
         packBotButton = new JButton("Inpakrobot");
         add(packBotButton);
-        packBotButton.setBounds(550, 500, 200, 30);
+//        packBotButton.setBounds(550, 500, 200, 30);
         packBotButton.addActionListener(this);
 
         orderButton = new JButton("Orders");
         add(orderButton);
-        orderButton.setBounds(800, 500, 200, 30);
+//        orderButton.setBounds(800, 500, 200, 30);
 
         stockButton = new JButton("Voorraad");
         add(stockButton);
-        stockButton.setBounds(1050, 500, 200, 30);
+//        stockButton.setBounds(1050, 500, 200, 30);
 
         setVisible(true);
     }
