@@ -1,4 +1,6 @@
 import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.io.IOException;
 
@@ -11,22 +13,38 @@ public class Robot {
         sp.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
     }
 
-    public void openConnection() {
+    public boolean openConnection() {
         if (sp.openPort()) {
             System.out.println("Port is open :)");
+
+            sp.addDataListener(new SerialPortDataListener() {
+                String messages = "";
+
+                @Override
+                public int getListeningEvents() {
+                    return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+                }
+
+                @Override
+                public void serialEvent(SerialPortEvent event) {
+                    messages += new String(event.getReceivedData());
+                    while (messages.contains("\n")) {
+                        String[] message = messages.split("\\n", 2);
+                        messages = (message.length > 1) ? message[1] : "";
+                        System.out.println("Message: " + message[0]);
+                    }
+                }
+            });
+            return true;
         } else {
             System.out.println("Failed to open port :(");
-            return;
+            return false;
         }
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void closeConnection() {
+        sp.removeDataListener();
         if (sp.closePort()) {
             System.out.println("Port is closed :)");
         } else {
@@ -48,4 +66,5 @@ public class Robot {
             e.printStackTrace();
         }
     }
+
 }
