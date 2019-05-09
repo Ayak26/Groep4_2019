@@ -12,9 +12,8 @@ public class Order {
         _ingepakt = false;
         Database.createStatement();
         ResultSet rs = Database.executeQuery("SELECT StockItemID FROM orderlines WHERE OrderID = " + _ordernr);
-        ArrayList<Integer> _id;
+        ArrayList<Integer> _id = new ArrayList<>();
         try {
-            _id = new ArrayList<>();
             while (rs.next()) {
                 _id.add(rs.getInt(1));
             }
@@ -22,6 +21,7 @@ public class Order {
             int j = 0;
             for (Integer i: _id) {
                 _artikelen[j] = new Artikel(i);
+                j++;
             }
         } catch (java.sql.SQLException e) {
             e.getStackTrace();
@@ -38,8 +38,7 @@ public class Order {
                 '}';
     }
     public void print() {
-        System.out.println(_ordernr);
-        System.out.println(_ingepakt);
+        System.out.println("Order nummer: "+_ordernr);
         for (Artikel a: _artikelen) {
             System.out.println(a);
         }

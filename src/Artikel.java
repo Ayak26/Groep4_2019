@@ -14,10 +14,11 @@ public class Artikel {
                 "ON stockitems.ColorID = colors.ColorID WHERE StockItemID = " + _id);
         if (rs != null) {
             try {
-                _naam = rs.getString(1);
-                _kleur = rs.getString(2);
-                _size = rs.getString(3);
-
+                while(rs.next()) {
+                    _naam = rs.getString(1);
+                    _size = rs.getString(2);
+                    _kleur = rs.getString(3);
+                }
             } catch (java.sql.SQLException e) {
                 e.getStackTrace();
             }
