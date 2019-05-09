@@ -7,7 +7,5 @@ public class Artikel {
 
     public Artikel(int id) {
         _id = id;
-        Statement s = Database.c.prepareStatement("SELECT StockItemName, ColorName From stockitems s " +
-                "JOIN colors c ON c.ColorID=s.ColorID WHERE StockItemID = 'id'");
     }
 }
