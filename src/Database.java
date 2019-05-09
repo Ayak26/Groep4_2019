@@ -1,7 +1,7 @@
 import java.sql.*;
 
 public class Database {
-    private static String url = "jdbc:mysql://localhost:8080/wideworldimporters";
+    private static String url = "jdbc:mysql://localhost/wideworldimporters";
     private static String username = "root", password = "";
 
     private static Connection c;

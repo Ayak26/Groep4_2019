@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Order {
     private int _ordernr;
@@ -10,21 +12,36 @@ public class Order {
         _ingepakt = false;
         Database.createStatement();
         ResultSet rs = Database.executeQuery("SELECT StockItemID FROM orderlines WHERE OrderID = " + _ordernr);
-        int _id[];
+        ArrayList<Integer> _id;
         try {
-            _id = new int[rs.getFetchSize()];
-            int i = 0;
+            _id = new ArrayList<>();
             while (rs.next()) {
-                _id[i] = rs.getInt(1);
-                i++;
+                _id.add(rs.getInt(1));
             }
-            for (int j = 0; j < _id.length; j++) {
-                _artikelen = new Artikel[_id[j]];
+            _artikelen = new Artikel[_id.size()];
+            int j = 0;
+            for (Integer i: _id) {
+                _artikelen[j] = new Artikel(i);
             }
         } catch (java.sql.SQLException e) {
             e.getStackTrace();
         }
         Database.closeStatement();
 
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "_ordernr=" + _ordernr +
+                ", _ingepakt=" + _ingepakt +
+                '}';
+    }
+    public void print() {
+        System.out.println(_ordernr);
+        System.out.println(_ingepakt);
+        for (Artikel a: _artikelen) {
+            System.out.println(a);
+        }
     }
 }

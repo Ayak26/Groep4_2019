@@ -7,19 +7,33 @@ public class Artikel {
     private String _size;
 
 
-
     public Artikel(int id) {
         _id = id;
         Database.createStatement();
         ResultSet rs = Database.executeQuery("SELECT StockItemName, Size, ColorName FROM stockitems JOIN colors " +
-                                             "ON stockitems.ColorID = colors.ColorID WHERE StockItemID = "+ _id);
-        try{
-            _naam = rs.getString(1);
-            _kleur = rs.getString(2);
-            _size = rs.getString(3);
-        }catch(java.sql.SQLException e){
-            e.getStackTrace();
+                "ON stockitems.ColorID = colors.ColorID WHERE StockItemID = " + _id);
+        if (rs != null) {
+            try {
+                _naam = rs.getString(1);
+                _kleur = rs.getString(2);
+                _size = rs.getString(3);
+
+            } catch (java.sql.SQLException e) {
+                e.getStackTrace();
+            }
+        } else {
+            System.out.println("Er is iets mis gegaan");
         }
         Database.closeStatement();
+    }
+
+    @Override
+    public String toString() {
+        return "Artikel{" +
+                "_id=" + _id +
+                ", _naam='" + _naam + '\'' +
+                ", _kleur='" + _kleur + '\'' +
+                ", _size='" + _size + '\'' +
+                '}';
     }
 }

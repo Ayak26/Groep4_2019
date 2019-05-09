@@ -31,6 +31,7 @@ public class DBtest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        Database.closeStatement();
         Database.closeConnection();
     }
 }
