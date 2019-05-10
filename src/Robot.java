@@ -31,7 +31,7 @@ public class Robot {
                     while (messages.contains("\n")) {
                         String[] message = messages.split("\\n", 2);
                         messages = (message.length > 1) ? message[1] : "";
-                        System.out.println("Message: " + message[0]);
+                        readCommand(message[0]);
                     }
                 }
             });
@@ -53,6 +53,7 @@ public class Robot {
     }
 
     public void sendCommand(String command) {
+        command += "\n";
         try {
             byte[] convert = command.getBytes();
             sp.getOutputStream().write(convert);
@@ -67,4 +68,9 @@ public class Robot {
         }
     }
 
+    private void readCommand(String command) {
+        if(command.equals("Hello World\r")) {
+            sendCommand("Go fuck yourself");
+        }
+    }
 }
