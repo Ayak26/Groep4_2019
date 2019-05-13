@@ -48,8 +48,7 @@ public class OpenCV {
             camera = new VideoCapture(1);
         }
       //JOptionPane.showMessageDialog(null, "ERROR4");
-    	        Scherm h = new Scherm();
-        h.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     	if(!camera.isOpened()){
         //JOptionPane.showMessageDialog(null, "ERROR");
     	}

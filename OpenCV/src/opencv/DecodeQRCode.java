@@ -33,7 +33,6 @@ public class DecodeQRCode {
             System.out.println(result.getText());
             for(int i = 0; i < getArticle.size(); i++){
             if(result.getText().equals(getArticle.get(i))){
-                System.out.println("ERIN!");
             return result.getText();
             }
             }
