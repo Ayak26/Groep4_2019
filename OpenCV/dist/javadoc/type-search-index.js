@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"opencv","l":"DecodeQRCode"},{"p":"opencv","l":"Dialoog"},{"p":"opencv","l":"OpenCV"},{"p":"opencv","l":"Scherm"}]

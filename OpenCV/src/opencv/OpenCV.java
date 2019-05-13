@@ -4,51 +4,58 @@
  * and open the template in the editor.
  */
 package opencv;
-import org.opencv.core.*;
-import org.opencv.highgui.*; 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.imgcodecs.Imgcodecs;
 import java.util.concurrent.TimeUnit;
 
-import com.google.zxing.*;
-import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
-import com.google.zxing.common.HybridBinarizer;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
         
 public class OpenCV {
     
     
-     private static String decodeQRCode(File qrCodeimage) throws IOException {
-        BufferedImage bufferedImage = ImageIO.read(qrCodeimage);
-        LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
-        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+//     private static String decodeQRCode(File qrCodeimage) throws IOException {
+//
+//    }
+    
 
-        try {
-            Result result = new MultiFormatReader().decode(bitmap);
-            return result.getText();
-        } catch (NotFoundException e) {
-            System.out.println("There is no QR code in the image");
-            return null;
-        }
-    }
 
     public static void main (String args[]){
         
-//        for(int i = 0; i < 10; i++){
+        
+        VideoCapture camera;
 
-//        }
-    	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    	VideoCapture camera = new VideoCapture(0);
-    	
+    try{
+
+
+    System.load("C:/opencv/build/java/x64/opencv_java410.dll");
+    System.load("C:/opencv/build/x64/vc14/bin/opencv_ffmpeg410_64.dll");
+    System.load("C:/opencv/build/x64/vc14/bin/opencv_world410.dll");
+
+    } catch(Exception es){
+        //   JOptionPane.showMessageDialog(null, "ERROR: " + es);
+    }
+          //      JOptionPane.showMessageDialog(null, "ERROR1");
+
+        try{
+         camera = new VideoCapture(0);
+
+        } catch(Exception es){
+           // JOptionPane.showMessageDialog(null, "ERRORSS: " + es);
+            camera = new VideoCapture(1);
+        }
+      //JOptionPane.showMessageDialog(null, "ERROR4");
+    	        Scherm h = new Scherm();
+        h.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	if(!camera.isOpened()){
-    	//	System.out.println("Error");
+        //JOptionPane.showMessageDialog(null, "ERROR");
     	}
     	else {
+          //          JOptionPane.showMessageDialog(null, "ERROR2");
+
     		Mat frame = new Mat();
     	    while(true){
     	    	if (camera.read(frame)){
@@ -61,12 +68,14 @@ public class OpenCV {
                         
                                    try {
             File file = new File("camera.jpg");
-            String decodedText = decodeQRCode(file);
+            DecodeQRCode nieuw = new DecodeQRCode();
+            String decodedText = nieuw.DecodeQRCode(file);
             if(decodedText == null) {
              //   System.out.println("No QR Code found in the image");
-                      
             } else {
-                System.out.println("Decoded text = " + decodedText);
+               System.out.println("Decoded text = " + decodedText);
+            //    JOptionPane.showMessageDialog(null, decodedText);
+
                  TimeUnit.SECONDS.sleep(1);
             }
         } catch (Exception e) {
@@ -82,5 +91,6 @@ public class OpenCV {
     	}
         
     	camera.release();
+
     }
 }   
