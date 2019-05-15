@@ -13,20 +13,8 @@ public class Main {
         Database.openConnection();
 
         Database.createStatement();
-        rs = Database.executeQuery("SELECT OrderID, OrderDate FROM orders");
+        rs = Database.executeQuery("SELECT OrderID FROM orders ORDER BY OrderID");
         DbScreenTest screen = new DbScreenTest(rs);
-//        ArrayList table = screen.convertRsToTableData(rs);
-//        System.out.println(table);
-//        try {
-//            while (rs.next()) {
-//                int id = rs.getInt(1);
-//                String naam = rs.getString(2);
-//                System.out.println(rs.getString(2));
-////                System.out.println(id + " " + naam);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
         Database.closeStatement();
         Database.closeConnection();
     }

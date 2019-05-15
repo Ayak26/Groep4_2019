@@ -1,105 +1,79 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class DbScreenTest extends JFrame implements ActionListener {
 
-    private JTable table;
     private ResultSet rs;
+    private ResultSetMetaData rsmd;
+    private int row_count;
 
-    public DbScreenTest(String[][] data, String[] columnNames) {
-        setTitle("Database screen test");
-        setSize(250, 200);
-        setLayout(new FlowLayout());
-
-        setVisible(true);
-    }
 
     public DbScreenTest(ResultSet rs) {
         this.rs = rs;
-        JTable table = new JTable();
-
-        setTitle("Database screen test");
-        setSize(250, 200);
-        setLayout(new FlowLayout());
-
         try {
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int row_count = rsmd.getColumnCount();
-            System.out.println(rsmd.getColumnName(1));
-            String[] column_names = {rsmd.getColumnName(1), "progressie", "Lijn"};
-            ArrayList<ArrayList> arrayList = this.convertRsToTableData(rs);
-            String[][] data = new String[arrayList.size()][];
-            for (int i = 0; i < arrayList.size(); i++) {
-                ArrayList<String> row = arrayList.get(i);
-                data[i] = row.toArray(new String[row.size()]);
-            }
-            table = new JTable(data, column_names);
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-
-
-        table.setBounds(30, 40, 100, 100);
-
-        JScrollPane sp = new JScrollPane(table);
-        add(sp);
-
-
-        setVisible(true);
-    }
-
-    public DbScreenTest() {
-        setTitle("Database screen test");
-        setSize(250, 200);
-        setLayout(new FlowLayout());
-
-        String[][] data = {
-                {"Kundan Kumar Jha", "4031", "CSE"},
-                {"Anand Jha", "6014", "IT"}
-        };
-
-        String[] columnNames = {"Name", "Roll Number", "Department"};
-
-//        this(data, columnNames);
-        table = new JTable(data, columnNames);
-        table.setBounds(30, 40, 100, 100);
-
-        JScrollPane sp = new JScrollPane(table);
-        add(sp);
-
-
-        setVisible(true);
-    }
-
-    //    public String[][] convertToTable(){
-//        String[][] data = new
-//        return data;
-//    };
-    public ArrayList<ArrayList> convertRsToTableData(ResultSet rs) {
-        ArrayList<ArrayList> data = new ArrayList<ArrayList>();
-        try {
-            while (rs.next()) {
-                ArrayList<String> sub_data = new ArrayList<String>();
-                sub_data.add(Integer.toString(rs.getInt(1)));
-                sub_data.add("");
-                sub_data.add("");
-                data.add(sub_data);
-            }
+            this.rsmd = rs.getMetaData();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return data;
+        setTitle("Database screen test");
+        setSize(800, 480);
+        setLayout(new FlowLayout());
+
+        JTable table = this.CreateTableFromResultset();
+        table.setBounds(30, 40, 100, 100);
+        JScrollPane sp = new JScrollPane(table);
+        add(sp);
+
+        setVisible(true);
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    private JTable CreateTableFromResultset() {
+        JTable table = new JTable();
+
+        try {
+            int row_count = rsmd.getColumnCount();
+            String[] column_names = setColumnNamesForTable();
+
+            String[][] data = StandartMethods.convertRsToTableData(rs);
+            DefaultTableModel tableModel = new DefaultTableModel(data, column_names) {
+                Class[] types = {Integer.class, Integer.class, Integer.class};
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    //all cells false
+                    return false;
+                }
+            };
+            table.setModel(tableModel);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return table;
+    }
+
+    private String[] setColumnNamesForTable() {
+        String[] column_names = new String[3];
+
+        try {
+            column_names[0] = rsmd.getColumnName(1);
+            column_names[1] = "progressie";
+            column_names[2] = "Lijn";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return column_names;
     }
 }
