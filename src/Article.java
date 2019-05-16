@@ -14,7 +14,7 @@ public class Article {
                 "ON stockitems.ColorID = colors.ColorID WHERE StockItemID = " + id);
         if (rs != null) {
             try {
-                while(rs.next()) {
+                while (rs.next()) {
                     name = rs.getString(1);
                     size = rs.getString(2);
                     colour = rs.getString(3);

@@ -69,7 +69,7 @@ public class Robot {
     }
 
     private void readCommand(String command) {
-        if(command.equals("Hello World\r")) {
+        if (command.equals("Hello World\r")) {
             sendCommand("Go fuck yourself");
         }
     }

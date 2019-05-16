@@ -19,7 +19,7 @@ public class Order {
             }
             articles = new Article[_id.size()];
             int j = 0;
-            for (Integer i: _id) {
+            for (Integer i : _id) {
                 articles[j] = new Article(i);
                 j++;
             }
@@ -37,9 +37,10 @@ public class Order {
                 ", packed=" + packed +
                 '}';
     }
+
     public void print() {
-        System.out.println("Order nummer: "+orderNr);
-        for (Article a: articles) {
+        System.out.println("Order nummer: " + orderNr);
+        for (Article a : articles) {
             System.out.println(a);
         }
     }
