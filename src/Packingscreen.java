@@ -2,33 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Packingscreen extends JFrame {
-    //set names for all the assets
-    JButton home_button;
-    JButton return_button;
-    JPanel home_button_panel;
-
-    JButton start_button;
-    JLabel start_image;
-    JPanel start_panel;
-    JPanel start_panel_image;
-
-    JLabel title;
-    JPanel title_panel;
-
-    JPanel container_panel_0;
-    JTextField container_content_textfield_0;
-    JButton textfield_0_plus;
-    JButton textfield_0_min;
-
-    JPanel container_panel_1;
-    JTextField container_content_textfield_1;
-    JButton textfield_1_plus;
-    JButton textfield_1_min;
-
-    JPanel container_panel_2;
-    JTextField container_content_textfield_2;
-    JButton textfield_2_plus;
-    JButton textfield_2_min;
 
     //making the JFrame here
     public Packingscreen() {
@@ -39,32 +12,33 @@ public class Packingscreen extends JFrame {
         setDefaultLookAndFeelDecorated(true);
 
         //making all the assets
-        home_button = new JButton("Home");
-        return_button = new JButton("Back");
-        home_button_panel = new JPanel();
+        //set names for all the assets
+        JButton home_button = new JButton("Home");
+        JButton return_button = new JButton("Back");
+        JPanel home_button_panel = new JPanel();
 
-        start_image = new JLabel();
-        start_button = new JButton("Start");
-        start_panel = new JPanel();
-        start_panel_image = new JPanel();
+        JLabel start_image = new JLabel();
+        JButton start_button = new JButton("Start");
+        JPanel start_panel = new JPanel();
+        JPanel start_panel_image = new JPanel();
 
-        title = new JLabel("Lijn <>");
-        title_panel = new JPanel();
+        JLabel title = new JLabel("Lijn <>");
+        JPanel title_panel = new JPanel();
 
-        container_content_textfield_0 = new JTextField("8");
-        textfield_0_plus = new JButton("+");
-        textfield_0_min = new JButton("-");
-        container_panel_0 = new JPanel();
+        JTextField container_content_textfield_0 = new JTextField("8");
+        JButton textfield_0_plus = new JButton("+");
+        JButton textfield_0_min = new JButton("-");
+        JPanel container_panel_0 = new JPanel();
 
-        container_panel_1 = new JPanel();
-        container_content_textfield_1 = new JTextField("8");
-        textfield_1_plus = new JButton("+");
-        textfield_1_min = new JButton("-");
+        JPanel container_panel_1 = new JPanel();
+        JTextField container_content_textfield_1 = new JTextField("8");
+        JButton textfield_1_plus = new JButton("+");
+        JButton textfield_1_min = new JButton("-");
 
-        container_panel_2 = new JPanel();
-        container_content_textfield_2 = new JTextField("8");
-        textfield_2_plus = new JButton("+");
-        textfield_2_min = new JButton("-");
+        JPanel container_panel_2 = new JPanel();
+        JTextField container_content_textfield_2 = new JTextField("8");
+        JButton textfield_2_plus = new JButton("+");
+        JButton textfield_2_min = new JButton("-");
 
         //setting parameters for all of the assets
         home_button.setPreferredSize(new Dimension(80, 30));
