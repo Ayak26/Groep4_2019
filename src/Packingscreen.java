@@ -30,17 +30,6 @@ public class Packingscreen extends JFrame {
     JButton textfield_2_plus;
     JButton textfield_2_min;
 
-    //counter for the containers, this makes the plus and minus buttons work.
-    public int Counter() {
-        int i = 0;
-        if (i < 1) {//zet hier actionperformed ding
-            i++;
-        } else {
-
-        }
-        return 0;
-    }
-
     //making the JFrame here
     public Packingscreen() {
         setLayout(null);
