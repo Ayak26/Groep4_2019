@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.home.SortRobot">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="182.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
         <Line layoutX="326.0" layoutY="255.0" startX="-100.0" />
@@ -18,15 +17,10 @@
         <Line endX="100.0" layoutX="392.0" layoutY="131.0" startX="100.0" startY="100.0" />
         <Line endX="100.0" layoutX="392.0" layoutY="279.0" startX="100.0" startY="100.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="471.0" layoutY="380.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
-        <Button layoutX="302.0" layoutY="298.0" mnemonicParsing="false"  text="Detecteren" />
-        <Button layoutX="27.0" layoutY="23.0" mnemonicParsing="false" text="Menu" />
+        <Button layoutX="302.0" layoutY="298.0" mnemonicParsing="false" text="Detecteren" />
+        <Button fx:id="home" layoutX="25.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#goHome" text="Home" />
         <Button layoutX="551.0" layoutY="239.0" mnemonicParsing="false" text="Splitsing" />
-        <ImageView fx:id="start_stop" fitHeight="93.0" fitWidth="113.0" layoutX="16.0" layoutY="333.0"  pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="../assets/start.PNG" />
-            </image>
-        </ImageView>
+        <ImageView fx:id="start_stop" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="390.0" onMouseClicked="#start_stop" pickOnBounds="true" preserveRatio="true" />
         <ImageView fitHeight="93.0" fitWidth="133.0" layoutX="283.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </Pane>
-
