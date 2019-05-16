@@ -3,24 +3,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Order {
-    private int _ordernr;
-    private boolean _ingepakt;
-    private Artikel[] _artikelen;
+    private int orderNr;
+    private boolean packed;
+    private Article[] articles;
 
     public Order(int Orderid) {
-        _ordernr = Orderid;
-        _ingepakt = false;
+        orderNr = Orderid;
+        packed = false;
         Database.createStatement();
-        ResultSet rs = Database.executeQuery("SELECT StockItemID FROM orderlines WHERE OrderID = " + _ordernr);
+        ResultSet rs = Database.executeQuery("SELECT StockItemID FROM orderlines WHERE OrderID = " + orderNr);
         ArrayList<Integer> _id = new ArrayList<>();
         try {
             while (rs.next()) {
                 _id.add(rs.getInt(1));
             }
-            _artikelen = new Artikel[_id.size()];
+            articles = new Article[_id.size()];
             int j = 0;
             for (Integer i: _id) {
-                _artikelen[j] = new Artikel(i);
+                articles[j] = new Article(i);
                 j++;
             }
         } catch (java.sql.SQLException e) {
@@ -33,13 +33,13 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "_ordernr=" + _ordernr +
-                ", _ingepakt=" + _ingepakt +
+                "orderNr=" + orderNr +
+                ", packed=" + packed +
                 '}';
     }
     public void print() {
-        System.out.println("Order nummer: "+_ordernr);
-        for (Artikel a: _artikelen) {
+        System.out.println("Order nummer: "+orderNr);
+        for (Article a: articles) {
             System.out.println(a);
         }
     }
