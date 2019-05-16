@@ -4,7 +4,7 @@
 Om het project te kunnen compilen moet je een paar extra bestanden downloaden. Hieronder is te zien welke er nodig zijn
 en hoe ze te verkrijgen. Wanneer je ze hebt voeg ze toe aan je java project als modules/libraries.
 
-### Database connectie
+### backend.Database connectie
 Voor de database connectie heb je de Connector/J nodig van deze site: http://dev.mysql.com/downloads/connector/j/. Deze
 geeft helaas een installer op zichzelf dus installeer de web versie (het kleinere bestand). 
 
