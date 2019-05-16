@@ -39,6 +39,10 @@ public class DbScreenTest extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Create a table from resultset defined in constructor
+     * @return JTable
+     */
     private JTable CreateTableFromResultset() {
         JTable table = new JTable();
 
@@ -64,6 +68,10 @@ public class DbScreenTest extends JFrame implements ActionListener {
         return table;
     }
 
+    /**
+     * Set the column names based on the resultset already defined
+     * @return String[]
+     */
     private String[] setColumnNamesForTable() {
         String[] column_names = new String[3];
 
