@@ -83,10 +83,16 @@ public class Robot {
         if (command.equals("AMOFF\r")) {
             sendCommand("Go fuck yourself");
         }
-        if (command.equals("S:OPEN\r")) {
+        if (command.equals("S1:OPEN\r")) {
             sendCommand("Go fuck yourself");
         }
-        if (command.equals("S:CLOSED\r")) {
+        if (command.equals("S1:CLOSED\r")) {
+            sendCommand("Go fuck yourself");
+        }
+        if (command.equals("S2:OPEN\r")) {
+            sendCommand("Go fuck yourself");
+        }
+        if (command.equals("S2:CLOSED\r")) {
             sendCommand("Go fuck yourself");
         }
     }
