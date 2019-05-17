@@ -13,29 +13,15 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Orders implements Initializable {
+public class Voorraad implements Initializable {
+
+    private boolean sorted;
 
     @FXML
-    private Button home, createorder;
+    private Button home;
 
     @FXML
-    private ImageView start_stop;
-
-
-
-    @FXML
-    private void goHome() throws Exception {
-        Stage stage = (Stage)home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
-        stage.setScene(new Scene(root));
-    }
-
-    @FXML
-    private void goCreateorder() throws Exception {
-        Stage stage = (Stage)createorder.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("Orderaanmaken.fxml"));
-        stage.setScene(new Scene(root));
-    }
+    private ImageView sort, start_stop;
 
     @FXML
     private void start_stop() {
@@ -50,6 +36,26 @@ public class Orders implements Initializable {
             Main.on = true;
         }
     }
+
+    @FXML
+    private void sort() {
+        Image image;
+        if(sorted) {
+            sorted = false;
+        } else if (!sorted) {
+            sorted = true;
+        } else {
+            sorted = true;
+        }
+    }
+
+    @FXML
+    private void goHome() throws Exception {
+        Stage stage = (Stage)home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        stage.setScene(new Scene(root));
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(Main.on) {
@@ -57,6 +63,6 @@ public class Orders implements Initializable {
         } else {
             start_stop.setImage(new Image("file:assets/start.png"));
         }
-
+        sort.setImage(new Image("file:assets/sort_a-z.png"));
     }
 }

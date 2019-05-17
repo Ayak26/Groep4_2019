@@ -39,9 +39,9 @@ public class Home implements Initializable {
 
 
     @FXML
-    private void goProducts() throws Exception {
+    private void goStock() throws Exception {
         Stage stage = (Stage)products.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("SelectProduct.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Voorraad.fxml"));
         stage.setScene(new Scene(root));
     }
 
@@ -62,7 +62,7 @@ public class Home implements Initializable {
     @FXML
     private void goOrders() throws Exception {
         Stage stage = (Stage)packing_robots.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("SelectPackingRobot.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Orders.fxml"));
         stage.setScene(new Scene(root));
     }
 

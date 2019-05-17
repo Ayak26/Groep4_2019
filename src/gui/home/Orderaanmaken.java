@@ -13,15 +13,12 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Orders implements Initializable {
-
+public class Orderaanmaken  implements Initializable {
     @FXML
-    private Button home, createorder;
+    private Button home, back, SelectProduct;
 
     @FXML
     private ImageView start_stop;
-
-
 
     @FXML
     private void goHome() throws Exception {
@@ -31,9 +28,16 @@ public class Orders implements Initializable {
     }
 
     @FXML
-    private void goCreateorder() throws Exception {
-        Stage stage = (Stage)createorder.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("Orderaanmaken.fxml"));
+    private void goBack() throws Exception {
+        Stage stage = (Stage)back.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("Orders.fxml"));
+        stage.setScene(new Scene(root));
+    }
+
+    @FXML
+    private void goSelectProduct() throws Exception {
+        Stage stage = (Stage)SelectProduct.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("SelectProduct.fxml"));
         stage.setScene(new Scene(root));
     }
 

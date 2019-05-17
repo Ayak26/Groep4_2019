@@ -18,10 +18,17 @@ public class SelectProduct implements Initializable {
     private boolean sorted;
 
     @FXML
-    private Button home;
+    private Button home, back;
 
     @FXML
     private ImageView sort, start_stop;
+
+    @FXML
+    private void goBack() throws Exception {
+        Stage stage = (Stage)back.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("Orderaanmaken.fxml"));
+        stage.setScene(new Scene(root));
+    }
 
     @FXML
     private void start_stop() {

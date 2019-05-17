@@ -74,5 +74,26 @@ public class Robot {
         if (command.equals("Hello World\r")) {
             sendCommand("Go fuck yourself");
         }
+        if (command.equals("CONNECTED\r")) {
+            sendCommand("Go fuck yourself");
+        }
+        if (command.equals("AMON\r")) {
+            sendCommand("Go fuck yourself");
+        }
+        if (command.equals("AMOFF\r")) {
+            sendCommand("Go fuck yourself");
+        }
+        if (command.equals("S1:OPEN\r")) {
+            sendCommand("Go fuck yourself");
+        }
+        if (command.equals("S1:CLOSED\r")) {
+            sendCommand("Go fuck yourself");
+        }
+        if (command.equals("S2:OPEN\r")) {
+            sendCommand("Go fuck yourself");
+        }
+        if (command.equals("S2:CLOSED\r")) {
+            sendCommand("Go fuck yourself");
+        }
     }
 }
