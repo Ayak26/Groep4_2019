@@ -6,8 +6,9 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.io.IOException;
 
-public class Robot {
+public abstract class Robot {
     private SerialPort sp;
+    protected boolean on;
 
     public Robot(String port) {
         sp = SerialPort.getCommPort(port);
