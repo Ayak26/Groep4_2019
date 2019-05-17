@@ -8,7 +8,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.home.SelectPackingRobot">
     <children>
-        <Button fx:id="home" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goHome" text="Home" />
+        <Button fx:id="home" layoutX="25.0" layoutY="15.0" prefWidth="50" mnemonicParsing="false" onMouseClicked="#goHome" text="Home" />
         <Button fx:id="alpha" layoutX="302.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#goAlpha" text="Lijn Alpha" />
         <Button fx:id="beta" layoutX="429.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#goBeta" text="Lijn Beta" />
         <ImageView fx:id="start_stop" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="390.0" onMouseClicked="#start_stop" pickOnBounds="true" preserveRatio="true"/>
