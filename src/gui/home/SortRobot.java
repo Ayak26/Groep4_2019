@@ -60,7 +60,7 @@ public class SortRobot implements Initializable{
 
         if(!detectbool) {
                 try {
-                    Image camimage = new Image("file:assets/qrcode.jpg");
+                    Image camimage = new Image("file:assets/camera.jpg");
                     detectimage.setImage(camimage);
                     detectimage.setVisible(true);
                 } catch(Exception f){
