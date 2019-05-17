@@ -111,7 +111,11 @@ void readCommand() {
             } else {
                 index_servo2 += 1;
             }
-        } else {
+        } else if (strcmp(received_chars, "CONNECT") == 0) {
+            Serial.write("CONNECTED");
+        }
+        
+        else {
             Serial.println("Command unknown");
         }
 }
@@ -122,7 +126,7 @@ void readCommand() {
 void checkServo1 () {
     if (servo1) {
         if ((unsigned long)(current_time - close_servo1) >= INTERVAL_CLOSE) {
-            s1.write(CLOSED);
+            Serial.write(S1:CLOSED);
             servo1 = false;
         }
     } else {
@@ -130,7 +134,7 @@ void checkServo1 () {
             if ((unsigned long)(current_time - timing_servo1[i]) >= INTERVAL_SERVO1 && timing_servo1[i] != 0) {
                 timing_servo1[i] = 0;
                 close_servo1 = current_time;
-                s1.write(OPEN);
+                Serial.write(S1:OPEN);
                 servo1 = true;
             }
         }
