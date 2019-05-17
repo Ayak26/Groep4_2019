@@ -128,7 +128,7 @@ void readCommand() {
 void checkServo1 () {
     if (servo1) {
         if ((unsigned long)(current_time - close_servo1) >= INTERVAL_CLOSE) {
-            Serial.write(S1:CLOSED);
+            Serial.write("S1:CLOSED");
             servo1 = false;
         }
     } else {
@@ -136,7 +136,7 @@ void checkServo1 () {
             if ((unsigned long)(current_time - timing_servo1[i]) >= INTERVAL_SERVO1 && timing_servo1[i] != 0) {
                 timing_servo1[i] = 0;
                 close_servo1 = current_time;
-                Serial.write(S1:OPEN);
+                Serial.write("S1:OPEN");
                 servo1 = true;
             }
         }
@@ -149,7 +149,7 @@ void checkServo1 () {
 void checkServo2 () {
     if (servo2) {
         if ((unsigned long)(current_time - close_servo2) >= INTERVAL_CLOSE) {
-            Serial.write(S2:CLOSED);
+            Serial.write("S2:CLOSED");
             servo2 = false;
         }
     } else {
@@ -157,7 +157,7 @@ void checkServo2 () {
             if ((unsigned long)(current_time - timing_servo2[i]) >= INTERVAL_SERVO2 && timing_servo2[i] != 0) {
                 timing_servo2[i] = 0;
                 close_servo2 = current_time;
-                Serial.write(S2:OPEN);
+                Serial.write("S2:OPEN");
                 servo2 = true;
             }
         }
