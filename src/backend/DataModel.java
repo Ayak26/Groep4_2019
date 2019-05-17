@@ -9,7 +9,7 @@ public class DataModel {
     Robot inpakrobot1;
     Robot inpakrobot2;
     Robot sorteerrobot1;
-    ArrayList<ResultSet> orders;
+    ArrayList<Integer> orders;
 
     private DataModel() {
         turned_on = false;
@@ -18,12 +18,12 @@ public class DataModel {
         sorteerrobot1 = new Robot("COM4");
         Database.openConnection();
         Database.createStatement();
-        orders = new ArrayList<ResultSet>();
+        orders = new ArrayList<Integer>();
         ResultSet rs = Database.executeQuery("SELECT OrderID FROM orders WHERE PickingCompletedWhen is NULL");
         try {
             while (rs.next()) {
                 int x = rs.getInt(1);
-                orders.add(new Integer(x));
+                orders.add(x);
             }
         } catch (SQLException e) {
             e.printStackTrace();
