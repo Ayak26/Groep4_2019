@@ -93,9 +93,9 @@ void serialInput() {
  Reads the command received in serialInput and acts on it
  */
 void readCommand() {
-        if (strcmp(received_chars, "I") == 0) {
+        if (strcmp(received_chars, "ON") == 0) {
             on = true;
-        } else if (strcmp(received_chars, "O") == 0) {
+        } else if (strcmp(received_chars, "OFF") == 0) {
             on = false;
         } else if (strcmp(received_chars, "S1") == 0) {
             timing_servo1[index_servo1] = current_time;
@@ -143,7 +143,7 @@ void checkServo1 () {
 void checkServo2 () {
     if (servo2) {
         if ((unsigned long)(current_time - close_servo2) >= INTERVAL_CLOSE) {
-            s2.write(CLOSED);
+            Serial.write(S1:CLOSED);
             servo2 = false;
         }
     } else {
@@ -151,7 +151,7 @@ void checkServo2 () {
             if ((unsigned long)(current_time - timing_servo2[i]) >= INTERVAL_SERVO2 && timing_servo2[i] != 0) {
                 timing_servo2[i] = 0;
                 close_servo2 = current_time;
-                s2.write(OPEN);
+                Serial.write(S1:OPEN);
                 servo2 = true;
             }
         }
