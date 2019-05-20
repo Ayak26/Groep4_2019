@@ -30,6 +30,10 @@ public class Article {
         Database.closeStatement();
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "backend.Article{" +

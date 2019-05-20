@@ -30,6 +30,15 @@ public class Order {
         Database.closeStatement();
 
     }
+    //Test
+    public Order() {
+        orderNr = 0;
+        packed = false;
+        articles = new Article[3];
+        articles[0] = new Article(1);
+        articles[1] = new Article(2);
+        articles[2] = new Article(3);
+    }
 
     @Override
     public String toString() {
@@ -37,6 +46,10 @@ public class Order {
                 "orderNr=" + orderNr +
                 ", packed=" + packed +
                 '}';
+    }
+
+    public Article[] getArticles() {
+        return articles;
     }
 
     public void print() {
