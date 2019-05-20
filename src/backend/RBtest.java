@@ -8,7 +8,7 @@ public class RBtest {
         if (inpakrobot1.openConnection()) {
 
             try {
-                Thread.sleep(20000);
+                Thread.sleep(40000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
