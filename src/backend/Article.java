@@ -1,12 +1,15 @@
 package backend;
 
+import javafx.scene.image.Image;
+
 import java.sql.*;
 
 public class Article {
     private int id;
     private String name;
     private String colour;
-    private String size;
+    private int size;
+    private Image image;
 
 
     public Article(int id) {
@@ -18,7 +21,7 @@ public class Article {
             try {
                 while (rs.next()) {
                     name = rs.getString(1);
-                    size = rs.getString(2);
+                    size = rs.getInt(2);
                     colour = rs.getString(3);
                 }
             } catch (java.sql.SQLException e) {
@@ -28,6 +31,10 @@ public class Article {
             System.out.println("Er is iets mis gegaan");
         }
         Database.closeStatement();
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public int getId() {

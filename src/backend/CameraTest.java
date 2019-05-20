@@ -6,7 +6,6 @@ import org.opencv.videoio.VideoCapture;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 public class CameraTest {
     public CameraTest() {

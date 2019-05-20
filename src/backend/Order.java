@@ -18,6 +18,7 @@ public class Order {
             while (rs.next()) {
                 _id.add(rs.getInt(1));
             }
+            Database.closeStatement();
             articles = new Article[_id.size()];
             int j = 0;
             for (Integer i : _id) {
@@ -27,7 +28,6 @@ public class Order {
         } catch (java.sql.SQLException e) {
             e.getStackTrace();
         }
-        Database.closeStatement();
 
     }
     //Test

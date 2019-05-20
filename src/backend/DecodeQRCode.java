@@ -2,6 +2,7 @@ package backend;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -22,6 +23,7 @@ public class DecodeQRCode {
             System.out.println(result.getText());
             for (int i = 0; i < articles.length-1; i++) {
                 if (Integer.parseInt(result.getText()) == articles[i].getId()) {
+                    articles[i].setImage(new Image(qrCodeimage.getCanonicalPath()));
                     return result.getText();
                 }
             }
