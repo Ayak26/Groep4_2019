@@ -19,7 +19,6 @@ unsigned long current_time, close_servo1, close_servo2;
 
 // ------ Flags ------
 bool on = false,
-     start = true,
      new_data = false,   //Communication flag
      servo1 = false,     //Servo open or not
      servo2 = false;     //false is closed, true is open
@@ -39,11 +38,6 @@ void setup() {
 
 void loop() {
   current_time = millis();
-  if (start) {
-    delay(4000);
-    Serial.println("Hello World");
-    start = false;
-  }
   serialInput();
   if (on) {
     motor(255);
@@ -121,9 +115,7 @@ void readCommand() {
     }
   } else if (strcmp(received_chars, "CONNECT") == 0) {
     Serial.println("CONNECTED");
-  }
-
-  else {
+  } else {
     Serial.println("Command unknown");
   }
 }
