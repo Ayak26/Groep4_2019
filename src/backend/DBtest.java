@@ -8,8 +8,6 @@ public class DBtest {
 
         ResultSet rs;
 
-        Database.openConnection();
-
         Database.createStatement();
         rs = Database.executeQuery("SELECT ColorID, ColorName FROM colors");
         try {
@@ -34,6 +32,5 @@ public class DBtest {
             e.printStackTrace();
         }
         Database.closeStatement();
-        Database.closeConnection();
     }
 }

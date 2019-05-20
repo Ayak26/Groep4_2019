@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        Database.openConnection();
         cameraThread = new CameraThread();
         cameraThread.start();
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
@@ -33,5 +33,6 @@ public class Main extends Application {
     public void stop() throws Exception {
         super.stop();
         cameraThread.stop();
+        Database.closeConnection();
     }
 }
