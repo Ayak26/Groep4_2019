@@ -14,7 +14,7 @@ public class CameraTest {
         VideoCapture camera;
 
         try {
-            System.load("C:/Users/Sybren/Documents/Javalibraries/opencv/build/java/x64/opencv_java410.dll");
+            System.load("C:/Users/Jeroen/Documents/Javalibraries/opencv/build/java/x64/opencv_java410.dll");
         } catch (Exception es) {
             JOptionPane.showMessageDialog(null, "ERROR Files can't be found: " + es);
         }
@@ -44,7 +44,6 @@ public class CameraTest {
                         if (decodedText != null) {
                             Imgcodecs.imwrite("assets/qrcode.jpg", frame);
                             System.out.println("Decoded text = " + decodedText);
-                            TimeUnit.SECONDS.sleep(10);
                         }
                     } catch (Exception e) {
                     }
