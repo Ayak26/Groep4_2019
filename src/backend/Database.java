@@ -1,3 +1,5 @@
+package backend;
+
 import java.sql.*;
 
 public class Database {
@@ -61,6 +63,15 @@ public class Database {
             s.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static boolean isClosed() {
+        try {
+            return c.isClosed();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return true;
         }
     }
 }

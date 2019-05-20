@@ -1,3 +1,5 @@
+package backend;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -5,8 +7,6 @@ public class DBtest {
     public DBtest() {
 
         ResultSet rs;
-
-        Database.openConnection();
 
         Database.createStatement();
         rs = Database.executeQuery("SELECT ColorID, ColorName FROM colors");
@@ -32,6 +32,5 @@ public class DBtest {
             e.printStackTrace();
         }
         Database.closeStatement();
-        Database.closeConnection();
     }
 }
