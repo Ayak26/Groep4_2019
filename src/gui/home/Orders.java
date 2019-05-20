@@ -21,8 +21,6 @@ public class Orders implements Initializable {
     @FXML
     private ImageView start_stop;
 
-
-
     @FXML
     private void goHome() throws Exception {
         Stage stage = (Stage)home.getScene().getWindow();

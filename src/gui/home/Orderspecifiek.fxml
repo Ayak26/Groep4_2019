@@ -13,8 +13,8 @@
        <ImageView fx:id="start_stop" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="390.0" onMouseClicked="#start_stop" pickOnBounds="true" preserveRatio="true" />
       <TableView layoutX="300.0" layoutY="107.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="100.0" text="Product" />
-          <TableColumn prefWidth="100.0" text="Aantal" />
+          <TableColumn prefWidth="100.0" text="Product" resizable="false" reorderable="false"/>
+          <TableColumn prefWidth="100.0" text="Aantal" resizable="false" reorderable="false"/>
         </columns>
       </TableView>
       <Label layoutX="350.0" layoutY="35.0" text="Order specifiek" />

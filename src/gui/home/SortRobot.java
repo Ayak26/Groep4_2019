@@ -1,5 +1,6 @@
 package gui.home;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,12 +10,25 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.nio.Buffer;
 import java.util.ResourceBundle;
+import javafx.scene.media.*;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.videoio.VideoCapture;
+
+import javax.imageio.ImageIO;
 
 
 public class SortRobot implements Initializable{
 
+    @FXML
+    private MediaView mediaview;
     @FXML
     private Button home;
 
@@ -68,8 +82,11 @@ public class SortRobot implements Initializable{
     }
 
     @FXML
-    private void refresh(){
-            if (!refreshbool) {
+    private void refresh() {
+
+
+
+    if (!refreshbool) {
                     refresh.setVisible(true);
                     camimage = new Image("file:assets/camera.jpg");
                     detectimage.setImage(camimage);

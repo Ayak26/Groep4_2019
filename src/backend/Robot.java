@@ -3,8 +3,8 @@ package backend;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
-
 import java.io.IOException;
+import java.sql.SQLOutput;
 
 public class Robot {
     private SerialPort sp;
@@ -75,6 +75,7 @@ public class Robot {
             sendCommand("Go fuck yourself");
         }
         if (command.equals("CONNECTED\r")) {
+            System.out.println("UITVOEREN");
             sendCommand("Go fuck yourself");
         }
         if (command.equals("AMON\r")) {

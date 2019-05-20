@@ -1,6 +1,8 @@
 package gui.home;
 
 import backend.CameraThread;
+import backend.RBtest;
+import backend.Robot;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,8 +24,12 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        CameraThread cameraThread = new CameraThread();
+       CameraThread cameraThread = new CameraThread();
+       RBtest robot = new RBtest();
         cameraThread.start();
         launch(args);
+        cameraThread.stop();
+
+
     }
 }
