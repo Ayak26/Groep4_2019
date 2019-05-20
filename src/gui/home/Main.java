@@ -9,9 +9,13 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     protected static boolean on = false;
+    CameraThread cameraThread;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        cameraThread = new CameraThread();
+        cameraThread.start();
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         primaryStage.setTitle("HMI");
         primaryStage.setScene(new Scene(root, 800, 480));
@@ -21,9 +25,12 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
-        CameraThread cameraThread = new CameraThread();
-        cameraThread.start();
         launch(args);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        cameraThread.stop();
     }
 }
