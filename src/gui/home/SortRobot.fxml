@@ -17,10 +17,11 @@
         <Line endX="100.0" layoutX="392.0" layoutY="131.0" startX="100.0" startY="100.0" />
         <Line endX="100.0" layoutX="392.0" layoutY="279.0" startX="100.0" startY="100.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="471.0" layoutY="380.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
-        <Button layoutX="302.0" layoutY="298.0" mnemonicParsing="false" text="Detecteren" />
-        <Button fx:id="home" layoutX="25.0" layoutY="15.0" prefWidth="50" mnemonicParsing="false" onMouseClicked="#goHome" text="Home" />
+        <Button fx:id="Detecteren" layoutX="302.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#detecteren" text="Detecteren" />
+        <Button fx:id="home" layoutX="25.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#goHome" prefWidth="50" text="Home" />
         <Button layoutX="551.0" layoutY="239.0" mnemonicParsing="false" text="Splitsing" />
         <ImageView fx:id="start_stop" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="390.0" onMouseClicked="#start_stop" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fitHeight="93.0" fitWidth="133.0" layoutX="283.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="detectimage" fitHeight="93.0" fitWidth="133.0" layoutX="283.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="refresh" onMouseClicked="#refresh" layoutX="316.0" layoutY="93.0" mnemonicParsing="false" text="Refresh" visible="false" />
     </children>
 </Pane>
