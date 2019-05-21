@@ -6,7 +6,7 @@ public class Article {
     private int id;
     private String name;
     private String colour;
-    private String size;
+    private int size;
 
 
     public Article(int id) {
@@ -18,7 +18,7 @@ public class Article {
             try {
                 while (rs.next()) {
                     name = rs.getString(1);
-                    size = rs.getString(2);
+                    size = rs.getInt(2);
                     colour = rs.getString(3);
                 }
             } catch (java.sql.SQLException e) {

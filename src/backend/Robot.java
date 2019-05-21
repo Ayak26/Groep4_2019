@@ -6,8 +6,9 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.io.IOException;
 
-public class Robot {
+public abstract class Robot {
     private SerialPort sp;
+    protected boolean on;
 
     public Robot(String port) {
         sp = SerialPort.getCommPort(port);
@@ -72,27 +73,6 @@ public class Robot {
 
     private void readCommand(String command) {
         if (command.equals("Hello World\r")) {
-            sendCommand("Go fuck yourself");
-        }
-        if (command.equals("CONNECTED\r")) {
-            sendCommand("Go fuck yourself");
-        }
-        if (command.equals("AMON\r")) {
-            sendCommand("Go fuck yourself");
-        }
-        if (command.equals("AMOFF\r")) {
-            sendCommand("Go fuck yourself");
-        }
-        if (command.equals("S1:OPEN\r")) {
-            sendCommand("Go fuck yourself");
-        }
-        if (command.equals("S1:CLOSED\r")) {
-            sendCommand("Go fuck yourself");
-        }
-        if (command.equals("S2:OPEN\r")) {
-            sendCommand("Go fuck yourself");
-        }
-        if (command.equals("S2:CLOSED\r")) {
             sendCommand("Go fuck yourself");
         }
     }

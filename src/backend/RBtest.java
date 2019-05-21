@@ -3,7 +3,7 @@ package backend;
 public class RBtest {
     public RBtest() {
 
-        Robot inpakrobot1 = new Robot("COM7");
+        Robot inpakrobot1 = new PackingRobot("COM4");
 
         if (inpakrobot1.openConnection()) {
 

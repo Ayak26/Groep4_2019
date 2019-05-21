@@ -6,16 +6,20 @@ import java.util.ArrayList;
 
 public class DataModel {
     boolean turned_on;
-    Robot inpakrobot1;
-    Robot inpakrobot2;
-    Robot sorteerrobot1;
+    private static Robot inpakrobot1;
+    private static Robot inpakrobot2;
+    private static Robot sorteerrobot1;
     ArrayList<Integer> orders;
 
-    private DataModel() {
+    public DataModel() {
         turned_on = false;
-        inpakrobot1 = new Robot("com5");
-        inpakrobot2 = new Robot("com1");
-        sorteerrobot1 = new Robot("COM4");
+        PackingRobot inpakrobot1 = new PackingRobot("COM4");
+        inpakrobot1.setOrder(100000);
+        inpakrobot1.setBoxes(8);
+
+
+        inpakrobot2 = new PackingRobot("com1");
+        sorteerrobot1 = new PackingRobot("COM5");
         Database.openConnection();
         Database.createStatement();
         orders = new ArrayList<Integer>();
@@ -35,15 +39,15 @@ public class DataModel {
         return turned_on;
     }
 
-    public Robot getInpakrobot1() {
+    public static Robot getInpakrobot1() {
         return inpakrobot1;
     }
 
-    public Robot getInpakrobot2() {
+    public static Robot getInpakrobot2() {
         return inpakrobot2;
     }
 
-    public Robot getSorteerrobot1() {
+    public static Robot getSorteerrobot1() {
         return sorteerrobot1;
     }
 

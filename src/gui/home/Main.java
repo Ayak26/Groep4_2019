@@ -1,5 +1,7 @@
 package gui.home;
 
+import backend.DataModel;
+import backend.PackingRobot;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +18,9 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 800, 480));
         primaryStage.setResizable(false);
         primaryStage.show();
+
+        DataModel datamodel = new DataModel();
+        DataModel.getInpakrobot1();
     }
 
 
