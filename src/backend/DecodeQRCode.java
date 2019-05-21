@@ -23,6 +23,7 @@ public class DecodeQRCode {
             System.out.println(result.getText());
             for (int i = 0; i < articles.length-1; i++) {
                 if (Integer.parseInt(result.getText()) == articles[i].getId()) {
+                    qrCodeimage.renameTo(new File("artikel" +articles[i].getId()+".jpg"));
                     articles[i].setImage(new Image(qrCodeimage.getCanonicalPath()));
                     return result.getText();
                 }
