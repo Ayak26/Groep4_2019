@@ -2,6 +2,7 @@ package backend;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PackingRobot extends Robot {
     private int order_id;
@@ -30,22 +31,40 @@ public class PackingRobot extends Robot {
     }
 
     public void packOrder(Order order) {
-        System.out.println(order);
 
-//        for (ArrayList article : articles) {
-//            System.out.println(item.get(1));
+        Article[] article_list = order.getArticle_list();
 
-//            System.out.println(item.size() < two.spaceLeft());
-//            if (Integer.parseInt((String) item.get(0)) < one.spaceLeft()){
-//                one.addContent(item);
-//            } else if (item.size() < two.spaceLeft()){
-//                two.addContent(item);
-//            } else if (item.size() < three.spaceLeft()){
-//                three.addContent(item);
-//            } else {
-//                //errything is full
-//            }
-//        }
+//        System.out.println(one);
+        long startTime = System.nanoTime();
+
+        for (Article article : article_list) {
+            if (article.getSize() <= one.spaceLeft()) {
+                one.addContent(article);
+                System.out.println(article.getName()+ " put in box one");
+                System.out.println(one.spaceLeft()+ " space left");
+            } else if (article.getSize() <= two.spaceLeft()) {
+                two.addContent(article);
+                System.out.println(article.getName()+ " put in box two");
+                System.out.println(two.spaceLeft()+ " space left");
+            } else if (article.getSize() <= three.spaceLeft()) {
+                three.addContent(article);
+                System.out.println(article.getName()+ " put in box three");
+                System.out.println(three.spaceLeft()+ " space left");
+            } else {
+                System.out.println("all boxes are full");
+            }
+        }
+
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime);
+
+        System.out.println(duration);
+        System.out.println(one.toString());
+        System.out.println(two.toString());
+        System.out.println(three.toString());
+
+
     }
 
 }

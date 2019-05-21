@@ -22,8 +22,6 @@ public class Main extends Application {
 
         DataModel datamodel = new DataModel();
         DataModel.getInpakrobot1();
-        Order guan = new Order(100000);
-        guan.print();
     }
 
 

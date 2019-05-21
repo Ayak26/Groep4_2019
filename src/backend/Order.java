@@ -57,29 +57,8 @@ public class Order {
         }
     }
 
-//    public ArrayList<ArrayList> getOrderInfo() {
-//        ArrayList<ArrayList> items = new ArrayList<>();
-//        Database.openConnection();
-//        Database.createStatement();
-//        ResultSet rs = Database.executeQuery("SELECT OrderLineID, Quantity, size FROM orderlines " +
-//                "JOIN stockitems ON stockitems.StockItemID = orderlines.StockItemID" +
-//                " WHERE OrderID = " + orderNr);
-//
-//
-//        try {
-//            while (rs.next()) {
-//
-//                ArrayList<Integer> item = new ArrayList<>();
-//                item.add(rs.getInt(1));
-//                item.add(rs.getInt(2));
-//                item.add(rs.getInt(3));
-//                items.add(item);
-//            }
-//        } catch (java.sql.SQLException e) {
-//            e.getStackTrace();
-//        }
-//        Database.closeStatement();
-//        Database.closeConnection();
-//        return items;
-//    }
+    public Article[] getArticle_list() {
+        return article_list;
+    }
+
 }

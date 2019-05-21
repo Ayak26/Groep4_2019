@@ -39,4 +39,17 @@ public class Article {
                 ", size='" + size + '\'' +
                 '}';
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public int getSize() {
+        return size;
+    }
 }

@@ -3,18 +3,30 @@ package backend;
 import java.util.ArrayList;
 
 public class Box {
-    public ArrayList<ArrayList> content = new ArrayList<>();
-    public int size;
+    public ArrayList<Article> content = new ArrayList<>();
+    public int size = 0;
 
     public void setSize(int size){
         this.size = size;
     }
 
-    public void addContent(ArrayList item){
-        content.add(item);
+    public void addContent(Article article){
+        content.add(article);
     }
 
     public Integer spaceLeft() {
-        return 4;
+        int space = size;
+        for (Article article: content) {
+            space = space - article.getSize();
+        }
+        return space;
+    }
+
+    @Override
+    public String toString() {
+        return "Box{" +
+                "content=" + content +
+                ", size=" + size +
+                '}';
     }
 }

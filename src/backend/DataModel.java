@@ -14,8 +14,9 @@ public class DataModel {
     public DataModel() {
         turned_on = false;
         PackingRobot inpakrobot1 = new PackingRobot("COM4");
+        inpakrobot1.setBoxes(5);
         inpakrobot1.setOrder(100000);
-        inpakrobot1.setBoxes(8);
+
 
 
         inpakrobot2 = new PackingRobot("com1");
