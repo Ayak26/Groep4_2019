@@ -1,6 +1,7 @@
 package gui.home;
 
 import backend.DataModel;
+import backend.Order;
 import backend.PackingRobot;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,8 @@ public class Main extends Application {
 
         DataModel datamodel = new DataModel();
         DataModel.getInpakrobot1();
+        Order guan = new Order(100000);
+        guan.print();
     }
 
 
