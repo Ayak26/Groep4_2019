@@ -73,7 +73,33 @@ public abstract class Robot {
 
     private void readCommand(String command) {
         if (command.equals("Hello World\r")) {
+            System.out.println("test");
+            sendCommand("ON");
+        }
+        if (command.equals("CONNECTED\r")) {
+            System.out.println("verbinding gemaakt");
             sendCommand("Go fuck yourself");
+        }
+        if (command.equals("AMON\r")) {
+            System.out.println("Robot is aan");
+            sendCommand("S1");
+        }
+        if (command.equals("AMOFF\r")) {
+            System.out.println("Robot is uit");
+        }
+        if (command.equals("S1:OPEN\r")) {
+            System.out.println("Servo 1 is open");
+        }
+        if (command.equals("S1:CLOSED\r")) {
+            System.out.println("Servo 1 is dicht");
+            sendCommand("S2");
+        }
+        if (command.equals("S2:OPEN\r")) {
+            System.out.println("Servo 2 is open");
+        }
+        if (command.equals("S2:CLOSED\r")) {
+            System.out.println("Servo 2 is dicht");
+            sendCommand("OFF");
         }
     }
 }
