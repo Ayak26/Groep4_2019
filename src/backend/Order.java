@@ -8,6 +8,7 @@ public class Order {
     private int orderNr;
     private boolean packed;
     private Article[] article_list;
+    private ArrayList<Integer> amount_list = new ArrayList<>();
 
     public Order(int Orderid) {
         orderNr = Orderid;
@@ -16,7 +17,7 @@ public class Order {
         Database.createStatement();
         ResultSet rs = Database.executeQuery("SELECT StockItemID, Quantity FROM orderlines WHERE OrderID = " + orderNr);
         ArrayList<Integer> id_list = new ArrayList<>();
-        ArrayList<Integer> amount_list = new ArrayList<>();
+
         try {
             while (rs.next()) {
                 id_list.add(rs.getInt(1));

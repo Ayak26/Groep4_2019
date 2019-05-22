@@ -29,4 +29,8 @@ public class Box {
                 ", size=" + size +
                 '}';
     }
+
+    boolean empty() {
+        return size == this.spaceLeft();
+    }
 }
