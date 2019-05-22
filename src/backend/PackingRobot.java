@@ -9,6 +9,7 @@ public class PackingRobot extends Robot {
     private Box one;
     private Box two;
     private Box three;
+    public ArrayList<String> path;
 
     public PackingRobot(String port) {
         super(port);
@@ -42,10 +43,23 @@ public class PackingRobot extends Robot {
                 one.addContent(article);
                 System.out.println(article.getName()+ " put in box one");
                 System.out.println(one.spaceLeft()+ " space left");
+                path = new ArrayList<>();
+                path.add("ON");
+                path.add("S1");
+                path.add("sleep(");
+                path.add("S1");
+
             } else if (article.getSize() <= two.spaceLeft()) {
                 two.addContent(article);
                 System.out.println(article.getName()+ " put in box two");
                 System.out.println(two.spaceLeft()+ " space left");
+                path = new ArrayList<>();
+                path.add("ON");
+                path.add("S1");
+                path.add("sleep(");
+                path.add("S2");
+                path.add("S1");
+                path.add("S2");
             } else if (article.getSize() <= three.spaceLeft()) {
                 three.addContent(article);
                 System.out.println(article.getName()+ " put in box three");
