@@ -1,35 +1,28 @@
 package backend;
 
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PackingRobot extends Robot {
     private int order_id;
-    private Box one = new Box();
-    private Box two = new Box();
-    private Box three = new Box();
-    private Box[] BoxArray = new Box[]{one, two, three};
+
+    private Box[] boxes;
 
     public PackingRobot(String port) {
         super(port);
+        boxes = new Box[3];
+        boxes[0] = new Box(5, "one");
+        boxes[1] = new Box(5, "two");
+        boxes[2] = new Box(5, "three");
     }
 
     public void setOrder(int order_id) {
         Order order = new Order(order_id);
-//        ArrayList<ArrayList> order_items = order.getOrderInfo();
         packOrder(order);
     }
 
     public void setBoxes(int size) {
-        one.setSize(size);
-        one.setName("one");
-        two.setSize(size);
-        two.setName("two");
-        three.setSize(size);
-        three.setName("three");
-
+        boxes[0].setSize(size);
+        boxes[1].setSize(size);
+        boxes[2].setSize(size);
     }
 
     public void packOrder(Order order) {
@@ -43,27 +36,25 @@ public class PackingRobot extends Robot {
             Box best_fit = bestFit(article);
             best_fit.addContent(article);
         }
-
-
         long endTime = System.nanoTime();
 
         long duration = (endTime - startTime);
 
-//        System.out.println(duration);
-        System.out.println("one = " + one.toString());
-        System.out.println("two = " + two.toString());
-        System.out.println("three = " + three.toString());
-
+        System.out.println(duration);
+        System.out.println(boxes[0].toString());
+        System.out.println(boxes[1].toString());
+        System.out.println(boxes[2].toString());
 
     }
 
+
     public Box bestFit(Article article) {
         Box best_fit = null;
-        if (one.empty() && two.empty() && three.empty()) {
+        if (boxes[0].empty() && boxes[1].empty() && boxes[2].empty()) {
             System.out.println(article.getName() + " set to one because everything is empty");
-            return one;
+            return boxes[0];
         }
-        for (Box box : BoxArray) {
+        for (Box box : boxes) {
             if (box.spaceLeft() != 0) {
 
                 System.out.println("current box: " + box.name);
@@ -80,11 +71,6 @@ public class PackingRobot extends Robot {
                 } else {
                     System.out.println(box.spaceLeft() + " < " + best_fit.spaceLeft() + " && " + box.spaceLeft() + " >= " + article.getSize());
                 }
-
-//            if (box.spaceLeft() == article.getSize()) {
-//                System.out.println("mf returned box: " +box.name);
-//                return box;
-//            }
             }
         }
 
@@ -92,5 +78,10 @@ public class PackingRobot extends Robot {
         System.out.println("");
 
         return best_fit;
+
+    }
+
+    public Box[] getBoxes() {
+        return boxes;
     }
 }

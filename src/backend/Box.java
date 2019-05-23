@@ -7,6 +7,11 @@ public class Box {
     public int size = 0;
     public String name;
 
+    public Box(int size, String name) {
+        this.size = size;
+        this.name = name;
+    }
+
     public void setSize(int size){
         this.size = size;
     }
@@ -26,6 +31,7 @@ public class Box {
         }
         return space;
     }
+
 
     @Override
     public String toString() {
