@@ -22,7 +22,9 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 800, 480));
         primaryStage.setResizable(false);
         primaryStage.show();
-        DBtest test = new DBtest();
+
+        DataModel datamodel = new DataModel();
+        DataModel.getInpakrobot1();
     }
 
 

@@ -9,6 +9,9 @@ public class Database {
     private static Connection c;
     private static Statement s;
 
+    /**
+     * @return a boolean containing if a database connection could be established or not
+     */
     public static boolean openConnection() {
         try {
             c = DriverManager.getConnection(url, username, password);
@@ -19,6 +22,9 @@ public class Database {
         }
     }
 
+    /**
+     * @return a boolean containing if the existing database connection could be closed
+     */
     public static boolean closeConnection() {
         try {
             c.close();
@@ -29,6 +35,9 @@ public class Database {
         }
     }
 
+    /**
+     * create a statement yet to be filled
+     */
     public static void createStatement() {
         try {
             s = c.createStatement();
@@ -37,6 +46,12 @@ public class Database {
         }
     }
 
+    /**
+     * try to execute the query and return a resultset
+     *
+     * @param Query a string containing a SQL query
+     * @return a resultset if the query was executed properly otherwise send back a null
+     */
     public static ResultSet executeQuery(String Query) {
         try {
             ResultSet rs = s.executeQuery(Query);
@@ -48,6 +63,12 @@ public class Database {
         }
     }
 
+    /**
+     * try to execute an update query and return the amount of changed rows
+     *
+     * @param Query  a string containing a SQL query
+     * @return a integer containing how many rows where updated
+     */
     public static int executeUpdate(String Query) {
         try {
             int succes = s.executeUpdate(Query);
@@ -58,6 +79,9 @@ public class Database {
         }
     }
 
+    /**
+     * close the statement
+     */
     public static void closeStatement() {
         try {
             s.close();
@@ -66,6 +90,9 @@ public class Database {
         }
     }
 
+    /**
+     * @return a boolean containing if the statement is actually closed
+     */
     public static boolean isClosed() {
         try {
             return c.isClosed();

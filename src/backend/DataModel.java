@@ -5,18 +5,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DataModel {
-    boolean turned_on;
-    Robot inpakrobot1;
-    Robot inpakrobot2;
-    Robot sorteerrobot1;
+    private static boolean turned_on;
+    private static PackingRobot inpakrobot1;
+    private static PackingRobot inpakrobot2;
+    private static SortingRobot sorteerrobot1;
     ArrayList<Integer> orders;
 
-    private DataModel() {
+    public DataModel() {
         turned_on = false;
-        inpakrobot1 = new Robot("com5");
-        inpakrobot2 = new Robot("com1");
-        sorteerrobot1 = new Robot("COM4");
-        Database.openConnection();
+        inpakrobot1 = new PackingRobot("COM4");
+        inpakrobot1.setOrder(100000);
+        inpakrobot1.setBoxes(5);
+        inpakrobot2 = new PackingRobot("COM5");
+        inpakrobot2.setOrder(100001);
+        inpakrobot2.setBoxes(5);
+        sorteerrobot1 = new SortingRobot("COM6");
+        
         Database.createStatement();
         orders = new ArrayList<Integer>();
         ResultSet rs = Database.executeQuery("SELECT OrderID FROM orders WHERE PickingCompletedWhen is NULL");
@@ -31,19 +35,15 @@ public class DataModel {
 
     }
 
-    public boolean isTurned_on() {
-        return turned_on;
-    }
-
-    public Robot getInpakrobot1() {
+    public static PackingRobot getInpakrobot1() {
         return inpakrobot1;
     }
 
-    public Robot getInpakrobot2() {
+    public static PackingRobot getInpakrobot2() {
         return inpakrobot2;
     }
 
-    public Robot getSorteerrobot1() {
+    public static Robot getSorteerrobot1() {
         return sorteerrobot1;
     }
 

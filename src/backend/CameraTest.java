@@ -16,6 +16,7 @@ public class CameraTest {
 
         try {
             System.load("C:/Users/Sybren/Documents/Javalibraries/opencv/build/java/x64/opencv_java410.dll");
+//            System.load("C:/Users/Arjan van Diest/Downloads/opencv/build/java/x64/opencv_java410.dll");
         } catch (Exception es) {
             JOptionPane.showMessageDialog(null, "ERROR Files can't be found: " + es);
         }
