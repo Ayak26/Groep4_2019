@@ -21,7 +21,6 @@ public class Order {
                 "ORDER BY size DESC");
         ArrayList<Integer> id_list = new ArrayList<>();
 
-        //loop through the resultset to fill the list of quantitys returned for each article
         try {
             while (rs.next()) {
                 id_list.add(rs.getInt(1));
@@ -45,15 +44,6 @@ public class Order {
         Database.closeStatement();
         Database.openConnection();
 
-    }
-    //Test
-    public Order() {
-        orderNr = 0;
-        packed = false;
-        article_list = new Article[3];
-        article_list[0] = new Article(1);
-        article_list[1] = new Article(2);
-        article_list[2] = new Article(3);
     }
 
     @Override

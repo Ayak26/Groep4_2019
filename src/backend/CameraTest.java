@@ -1,13 +1,11 @@
 package backend;
 
-import gui.home.Main;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 public class CameraTest {
     public CameraTest() {
@@ -16,7 +14,6 @@ public class CameraTest {
 
         try {
             System.load("C:/Users/Sybren/Documents/Javalibraries/opencv/build/java/x64/opencv_java410.dll");
-//            System.load("C:/Users/Arjan van Diest/Downloads/opencv/build/java/x64/opencv_java410.dll");
         } catch (Exception es) {
             JOptionPane.showMessageDialog(null, "ERROR Files can't be found: " + es);
         }
@@ -31,7 +28,6 @@ public class CameraTest {
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(null, "Cam can't be opened");
         } else {
-            //Mat frame = new Mat();
             Mat frame = new Mat();
             while (true) {
                 if (camera.read(frame)) {

@@ -15,53 +15,41 @@ public class DecodeQRCode {
         BufferedImage bufferedImage = ImageIO.read(qrCodeimage);
         LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+        Result result = null;
         try {
-            Result result = new MultiFormatReader().decode(bitmap);
-            for (int j = 0; j < DataModel.getInpakrobot1().getBoxes().length; j++) {
-                for (Article a : DataModel.getInpakrobot1().getBoxes()[j].content) {
-                    if (a.getId() == Integer.parseInt(result.getText()) && !a.isPacked()) {
-                        if (j == 0) {
-                            DataModel.getSorteerrobot1().sendCommand("S1");
-                            DataModel.getInpakrobot1().sendCommand("S1");
-                            a.setPacked(true);
-                            return result.getText();
-                        } else if (j == 1) {
-                            DataModel.getSorteerrobot1().sendCommand("S1");
-                            DataModel.getInpakrobot1().sendCommand("S2");
-                            a.setPacked(true);
-                            return result.getText();
-                        } else {
-                            DataModel.getSorteerrobot1().sendCommand("S1");
-                            a.setPacked(true);
-                            return result.getText();
-                        }
-                    }
-                }
-            }
-            for (int j = 0; j < DataModel.getInpakrobot2().getBoxes().length; j++) {
-                for (Article a : DataModel.getInpakrobot2().getBoxes()[j].content) {
-                    if (a.getId() == Integer.parseInt(result.getText()) && !a.isPacked()) {
-                        if (j == 0) {
-                            DataModel.getSorteerrobot1().sendCommand("S2");
-                            DataModel.getInpakrobot2().sendCommand("S1");
-                            a.setPacked(true);
-                            return result.getText();
-                        } else if (j == 1) {
-                            DataModel.getSorteerrobot1().sendCommand("S2");
-                            DataModel.getInpakrobot2().sendCommand("S2");
-                            a.setPacked(true);
-                            return result.getText();
-                        } else {
-                            DataModel.getSorteerrobot1().sendCommand("S2");
-                            a.setPacked(true);
-                            return result.getText();
-                        }
-                    }
-                }
-            }
+            result = new MultiFormatReader().decode(bitmap);
         } catch (NotFoundException e) {
-            return null;
+            e.printStackTrace();
         }
-        return null;
+        boolean sent = sendCommands(DataModel.getInpakrobot1(), result);
+        if (!sent) {
+            sendCommands(DataModel.getInpakrobot2(), result);
+        }
+        return result.getText();
+    }
+
+    private boolean sendCommands(PackingRobot robot, Result result) {
+        for (int j = 0; j < robot.getBoxes().length; j++) {
+            for (Article a : robot.getBoxes()[j].content) {
+                if (a.getId() == Integer.parseInt(result.getText()) && !a.isPacked()) {
+                    if (j == 0) {
+                        DataModel.getSorteerrobot1().sendCommand("S2");
+                        robot.sendCommand("S1");
+                        a.setPacked(true);
+                        return true;
+                    } else if (j == 1) {
+                        DataModel.getSorteerrobot1().sendCommand("S2");
+                        robot.sendCommand("S2");
+                        a.setPacked(true);
+                        return true;
+                    } else {
+                        DataModel.getSorteerrobot1().sendCommand("S2");
+                        a.setPacked(true);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

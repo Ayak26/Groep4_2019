@@ -29,11 +29,9 @@ public class PackingRobot extends Robot {
 
         Article[] article_list = order.getArticle_list();
 
-//        System.out.println(one);
         long startTime = System.nanoTime();
 
         for (Article article : article_list) {
-//            System.out.println(article.toString());
             Box best_fit = bestFit(article);
             if (best_fit != null) {
                 best_fit.addContent(article);

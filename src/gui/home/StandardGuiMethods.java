@@ -6,11 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class StandardGuiMethods {
-    @FXML
-    private ImageView start_stop;
 
     @FXML
-    private ImageView detectimage;
+    private ImageView start_stop, detectimage;
 
     @FXML
     static void start_stop(ImageView start_stop) {

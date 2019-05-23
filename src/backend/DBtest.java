@@ -14,7 +14,6 @@ public class DBtest {
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String naam = rs.getString(2);
-//                System.out.println(id + " " + naam);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -26,7 +25,6 @@ public class DBtest {
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String naam = rs.getString(2);
-//                System.out.println(id + " " + naam);
             }
         } catch (SQLException e) {
             e.printStackTrace();
