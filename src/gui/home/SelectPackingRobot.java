@@ -22,16 +22,7 @@ public class SelectPackingRobot implements Initializable {
 
     @FXML
     private void start_stop() {
-        Image image;
-        if(Main.on) {
-            image = new Image("file:assets/start.png");
-            start_stop.setImage(image);
-            Main.on =false;
-        } else {
-            image = new Image("file:assets/stop.png");
-            start_stop.setImage(image);
-            Main.on = true;
-        }
+        StandardGuiMethods.start_stop(start_stop);
     }
 
 
