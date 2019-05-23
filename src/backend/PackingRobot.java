@@ -1,14 +1,16 @@
 package backend;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PackingRobot extends Robot {
     private int order_id;
-    private Box one;
-    private Box two;
-    private Box three;
+    private Box one = new Box();
+    private Box two = new Box();
+    private Box three = new Box();
+    private Box[] BoxArray = new Box[]{one, two, three};
 
     public PackingRobot(String port) {
         super(port);
@@ -21,114 +23,74 @@ public class PackingRobot extends Robot {
     }
 
     public void setBoxes(int size) {
-        one = new Box();
-        two = new Box();
-        three = new Box();
         one.setSize(size);
+        one.setName("one");
         two.setSize(size);
+        two.setName("two");
         three.setSize(size);
+        three.setName("three");
 
     }
 
     public void packOrder(Order order) {
 
-        Article[] article_list = order.getArticle_list();
+        Article[] article_list = order.getArticle_listDecr();
 
 //        System.out.println(one);
         long startTime = System.nanoTime();
 
         for (Article article : article_list) {
-            if (article.getSize() <= one.spaceLeft()) {
-                one.addContent(article);
-                System.out.println(article.getName() + " put in box one");
-                System.out.println(one.spaceLeft() + " space left");
-            } else if (article.getSize() <= two.spaceLeft()) {
-                two.addContent(article);
-                System.out.println(article.getName() + " put in box two");
-                System.out.println(two.spaceLeft() + " space left");
-            } else if (article.getSize() <= three.spaceLeft()) {
-                three.addContent(article);
-                System.out.println(article.getName() + " put in box three");
-                System.out.println(three.spaceLeft() + " space left");
-            } else {
-                System.out.println("all boxes are full");
-            }
+            Box best_fit = bestFit(article);
+            best_fit.addContent(article);
         }
 
-
-        for (Article article : article_list) {
-            if (one.empty()){
-                one.addContent(article);
-            }
-
-            
-
-        }
 
         long endTime = System.nanoTime();
 
         long duration = (endTime - startTime);
 
-        System.out.println(duration);
-        System.out.println(one.toString());
-        System.out.println(two.toString());
-        System.out.println(three.toString());
+//        System.out.println(duration);
+        System.out.println("one = " + one.toString());
+        System.out.println("two = " + two.toString());
+        System.out.println("three = " + three.toString());
 
 
     }
 
-    public static int findClosest(int arr[], int target)
-    {
-        int n = arr.length;
+    public Box bestFit(Article article) {
+        Box best_fit = null;
+        if (one.empty() && two.empty() && three.empty()) {
+            System.out.println(article.getName() + " set to one because everything is empty");
+            return one;
+        }
+        for (Box box : BoxArray) {
+            if (box.spaceLeft() != 0) {
 
-        // Corner cases
-        if (target <= arr[0])
-            return arr[0];
-        if (target >= arr[n - 1])
-            return arr[n - 1];
+                System.out.println("current box: " + box.name);
 
-        // Doing binary search
-        int i = 0, j = n, mid = 0;
-        while (i < j) {
-            mid = (i + j) / 2;
+                if (best_fit == null || best_fit.spaceLeft() == 0) {
+                    System.out.println(article.getName() + " set to " + box.name + " because there was no best fit yet");
+                    best_fit = box;
+                }
 
-            if (arr[mid] == target)
-                return arr[mid];
+                if (box.spaceLeft() < best_fit.spaceLeft() && box.spaceLeft() >= article.getSize()) {
 
-            /* If target is less than array element,
-               then search in left */
-            if (target < arr[mid]) {
+                    System.out.println(article.getName() + " set to " + box.name + " because this box is a better fit for the article");
+                    best_fit = box;
+                } else {
+                    System.out.println(box.spaceLeft() + " < " + best_fit.spaceLeft() + " && " + box.spaceLeft() + " >= " + article.getSize());
+                }
 
-                // If target is greater than previous
-                // to mid, return closest of two
-                if (mid > 0 && target > arr[mid - 1])
-                    return getClosest(arr[mid - 1],
-                            arr[mid], target);
-
-                /* Repeat for left half */
-                j = mid;
-            }
-
-            // If target is greater than mid
-            else {
-                if (mid < n-1 && target < arr[mid + 1])
-                    return getClosest(arr[mid],
-                            arr[mid + 1], target);
-                i = mid + 1; // update i
+//            if (box.spaceLeft() == article.getSize()) {
+//                System.out.println("mf returned box: " +box.name);
+//                return box;
+//            }
             }
         }
 
-        // Only single element left after search
-        return arr[mid];
-    }
+        System.out.println("returned box: " + best_fit);
+        System.out.println("");
 
-    public static int getClosest(int val1, int val2,
-                                 int target)
-    {
-        if (target - val1 >= val2 - target)
-            return val2;
-        else
-            return val1;
+        return best_fit;
     }
-
 }

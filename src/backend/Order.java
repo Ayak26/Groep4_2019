@@ -46,10 +46,10 @@ public class Order {
     public Order() {
         orderNr = 0;
         packed = false;
-        articles = new Article[3];
-        articles[0] = new Article(1);
-        articles[1] = new Article(2);
-        articles[2] = new Article(3);
+        article_list = new Article[3];
+        article_list[0] = new Article(1);
+        article_list[1] = new Article(2);
+        article_list[2] = new Article(3);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Order {
     }
 
     public Article[] getArticles() {
-        return articles;
+        return article_list;
     }
 
     public void print() {
@@ -71,7 +71,8 @@ public class Order {
         }
     }
 
-    public Article[] getArticle_list() {
+    public Article[] getArticle_listDecr() {
+        // sort on decreasing size
         return article_list;
     }
 

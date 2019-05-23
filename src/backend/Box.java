@@ -5,9 +5,14 @@ import java.util.ArrayList;
 public class Box {
     public ArrayList<Article> content = new ArrayList<>();
     public int size = 0;
+    public String name;
 
     public void setSize(int size){
         this.size = size;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
     public void addContent(Article article){
@@ -24,7 +29,7 @@ public class Box {
 
     @Override
     public String toString() {
-        return "Box{" +
+        return "Box "+ name +"{" +
                 "content=" + content +
                 ", size=" + size +
                 '}';
