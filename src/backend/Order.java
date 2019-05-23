@@ -15,7 +15,10 @@ public class Order {
         packed = false;
         Database.openConnection();
         Database.createStatement();
-        ResultSet rs = Database.executeQuery("SELECT StockItemID, Quantity FROM orderlines WHERE OrderID = " + orderNr);
+        ResultSet rs = Database.executeQuery("SELECT ols.StockItemID, Quantity FROM orderlines AS ols \n" +
+                "JOIN stockitems AS sis ON sis.StockItemID = ols.StockItemID\n" +
+                "WHERE OrderID = " + orderNr + "\n" +
+                "ORDER BY size DESC");
         ArrayList<Integer> id_list = new ArrayList<>();
 
         try {
