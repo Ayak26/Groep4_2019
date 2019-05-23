@@ -14,9 +14,9 @@ public class PackingRobot extends Robot {
         boxes[2] = new Box(5, "three");
     }
 
-    public void setOrder(int order_id) {
+    public boolean setOrder(int order_id) {
         Order order = new Order(order_id);
-        packOrder(order);
+        return packOrder(order);
     }
 
     public void setBoxes(int size) {
@@ -25,7 +25,7 @@ public class PackingRobot extends Robot {
         boxes[2].setSize(size);
     }
 
-    public void packOrder(Order order) {
+    public boolean packOrder(Order order) {
 
         Article[] article_list = order.getArticle_list();
 
@@ -35,7 +35,12 @@ public class PackingRobot extends Robot {
         for (Article article : article_list) {
 //            System.out.println(article.toString());
             Box best_fit = bestFit(article);
-            best_fit.addContent(article);
+            if (best_fit != null) {
+                best_fit.addContent(article);
+            } else {
+                return false;
+            }
+
         }
         long endTime = System.nanoTime();
 
@@ -46,12 +51,13 @@ public class PackingRobot extends Robot {
         System.out.println(boxes[1].toString());
         System.out.println(boxes[2].toString());
 
+        return true;
     }
 
 
     /**
      * First check of all boxes are empty, next loop through the boxes and check if the current box is full.
-     *
+     * <p>
      * Now he checks if this is the first box or if this specific box is empty, because if so he sets this box as best fit.
      * After that he checks if the current box is fuller that the current best fit and if the space that is left is enough to accomadate the current article.
      * if so, he sets the current box as best fit
@@ -83,6 +89,8 @@ public class PackingRobot extends Robot {
                 } else {
                     System.out.println(box.spaceLeft() + " < " + best_fit.spaceLeft() + " && " + box.spaceLeft() + " >= " + article.getSize());
                 }
+            } else {
+                System.out.println(box.name + " is full");
             }
         }
 
