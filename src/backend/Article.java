@@ -34,18 +34,14 @@ public class Article {
     }
 
     /**
-     * return article id
-     *
-     * @return int
+     * @return an int contaioning the id of this article
      */
     public int getId() {
         return id;
     }
 
     /**
-     * returns a string composed of the id, name, colour and size of the article
-     *
-     * @return String
+     * @return a string composed of the id, name, colour and size of the article
      */
     @Override
     public String toString() {
@@ -58,27 +54,21 @@ public class Article {
     }
 
     /**
-     * return the name of the article
-     *
-     * @return String
+     * @return a string containing the name of the current article
      */
     public String getName() {
         return name;
     }
 
     /**
-     * return the colour of the article
-     *
-     * @return String
+     * @return a string containing the colour of the article
      */
     public String getColour() {
         return colour;
     }
 
     /**
-     * return the size of the article
-     *
-     * @return int
+     * @return an int containing the size of the article
      */
     public int getSize() {
         return size;
