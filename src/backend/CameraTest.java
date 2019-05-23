@@ -49,10 +49,9 @@ public class CameraTest {
                         DecodeQRCode newQRCode = new DecodeQRCode();
                         String decodedText = newQRCode.DecodeQRCode(file);
                         if (decodedText != null) {
-                            Imgcodecs.imwrite("assets/qrcode.jpg", frame);
                             System.out.println("Decoded text = " + decodedText);
-                            Main.robot2.sendCommand("S1");
-                            Thread.sleep(1000);
+                            Imgcodecs.imwrite("assets/qrcode.jpg", frame);
+                            Thread.sleep(5000);
                         }
                     } catch (Exception e) {
                     }

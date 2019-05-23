@@ -24,7 +24,8 @@ public class Main extends Application {
         primaryStage.show();
 
         DataModel datamodel = new DataModel();
-        DataModel.getInpakrobot1();
+        DataModel.getSorteerrobot1().openConnection();
+        DataModel.getInpakrobot1().openConnection();
     }
 
 
@@ -36,6 +37,8 @@ public class Main extends Application {
     public void stop() throws Exception {
         super.stop();
         cameraThread.stop();
+        DataModel.getSorteerrobot1().closeConnection();
+        DataModel.getInpakrobot1().closeConnection();
         Database.closeConnection();
     }
 }

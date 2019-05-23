@@ -3,7 +3,7 @@ package backend;
 import java.sql.*;
 
 public class Database {
-    private static String url = "jdbc:mysql://localhost/wideworldimporters";
+    private static String url = "jdbc:mysql://localhost/wideworldimporters?serverTimezone=UTC";
     private static String username = "root", password = "";
 
     private static Connection c;
