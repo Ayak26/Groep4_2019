@@ -1,5 +1,6 @@
 package backend;
 
+import gui.home.Main;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
@@ -14,7 +15,7 @@ public class CameraTest {
         VideoCapture camera;
 
         try {
-            System.load("C:/Users/Jeroen/Documents/Javalibraries/opencv/build/java/x64/opencv_java410.dll");
+            System.load("C:/Users/Sybren/Documents/Javalibraries/opencv/build/java/x64/opencv_java410.dll");
         } catch (Exception es) {
             JOptionPane.showMessageDialog(null, "ERROR Files can't be found: " + es);
         }
@@ -36,6 +37,11 @@ public class CameraTest {
 
                     Imgcodecs.imwrite("assets/camera.jpg", frame);
                     try {
+                        Thread.sleep(25);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
 
                         File file = new File("assets/camera.jpg");
 
@@ -44,6 +50,8 @@ public class CameraTest {
                         if (decodedText != null) {
                             Imgcodecs.imwrite("assets/qrcode.jpg", frame);
                             System.out.println("Decoded text = " + decodedText);
+                            Main.robot2.sendCommand("S1");
+                            Thread.sleep(1000);
                         }
                     } catch (Exception e) {
                     }
