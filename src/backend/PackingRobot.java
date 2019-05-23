@@ -1,18 +1,17 @@
 package backend;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PackingRobot extends Robot {
     private int order_id;
-    private Box one;
-    private Box two;
-    private Box three;
-    public ArrayList<String> path;
+
+    private Box[] boxes;
 
     public PackingRobot(String port) {
         super(port);
+        boxes = new Box[3];
+        boxes[0] = new Box(5);
+        boxes[1] = new Box(5);
+        boxes[2] = new Box(5);
     }
 
     public void setOrder(int order_id) {
@@ -22,12 +21,9 @@ public class PackingRobot extends Robot {
     }
 
     public void setBoxes(int size) {
-        one = new Box();
-        two = new Box();
-        three = new Box();
-        one.setSize(size);
-        two.setSize(size);
-        three.setSize(size);
+        boxes[0].setSize(size);
+        boxes[1].setSize(size);
+        boxes[2].setSize(size);
 
     }
 
@@ -39,31 +35,19 @@ public class PackingRobot extends Robot {
         long startTime = System.nanoTime();
 
         for (Article article : article_list) {
-            if (article.getSize() <= one.spaceLeft()) {
-                one.addContent(article);
+            if (article.getSize() <= boxes[0].spaceLeft()) {
+                boxes[0].addContent(article);
                 System.out.println(article.getName()+ " put in box one");
-                System.out.println(one.spaceLeft()+ " space left");
-                path = new ArrayList<>();
-                path.add("ON");
-                path.add("S1");
-                path.add("sleep(");
-                path.add("S1");
 
-            } else if (article.getSize() <= two.spaceLeft()) {
-                two.addContent(article);
+                System.out.println(boxes[0].spaceLeft()+ " space left");
+            } else if (article.getSize() <= boxes[1].spaceLeft()) {
+                boxes[1].addContent(article);
                 System.out.println(article.getName()+ " put in box two");
-                System.out.println(two.spaceLeft()+ " space left");
-                path = new ArrayList<>();
-                path.add("ON");
-                path.add("S1");
-                path.add("sleep(");
-                path.add("S2");
-                path.add("S1");
-                path.add("S2");
-            } else if (article.getSize() <= three.spaceLeft()) {
-                three.addContent(article);
+                System.out.println(boxes[1].spaceLeft()+ " space left");
+            } else if (article.getSize() <= boxes[2].spaceLeft()) {
+                boxes[2].addContent(article);
                 System.out.println(article.getName()+ " put in box three");
-                System.out.println(three.spaceLeft()+ " space left");
+                System.out.println(boxes[2].spaceLeft()+ " space left");
             } else {
                 System.out.println("all boxes are full");
             }
@@ -74,11 +58,14 @@ public class PackingRobot extends Robot {
         long duration = (endTime - startTime);
 
         System.out.println(duration);
-        System.out.println(one.toString());
-        System.out.println(two.toString());
-        System.out.println(three.toString());
+        System.out.println(boxes[0].toString());
+        System.out.println(boxes[1].toString());
+        System.out.println(boxes[2].toString());
 
 
     }
 
+    public Box[] getBoxes() {
+        return boxes;
+    }
 }

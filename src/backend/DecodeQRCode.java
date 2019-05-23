@@ -7,11 +7,12 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class DecodeQRCode {
     Order one = new Order();
     Article articles[] = one.getArticles();
+    Box boxes1[] = DataModel.getInpakrobot1().getBoxes();
+    Box boxes2[] = DataModel.getInpakrobot2().getBoxes();
 
     public String DecodeQRCode(File qrCodeimage) throws IOException {
         BufferedImage bufferedImage = ImageIO.read(qrCodeimage);
@@ -22,6 +23,52 @@ public class DecodeQRCode {
             System.out.println(result.getText());
             for (int i = 0; i < articles.length-1; i++) {
                 if (Integer.parseInt(result.getText()) == articles[i].getId()) {
+                    boolean found = false;
+                    for (int j = 0; j < 3; j++) {
+                        if(!found) {
+                            for (Article a : boxes1[j].content) {
+                                if (a.equals(articles[i])) {
+                                    if (j == 0) {
+                                        DataModel.getSorteerrobot1().sendCommand("S1");
+                                        DataModel.getInpakrobot1().sendCommand("S1");
+                                        found =true;
+                                        break;
+                                    } else if (j == 1) {
+                                        DataModel.getSorteerrobot1().sendCommand("S1");
+                                        DataModel.getInpakrobot1().sendCommand("S2");
+                                        found =true;
+                                        break;
+                                    } else {
+                                        DataModel.getSorteerrobot1().sendCommand("S1");
+                                        found =true;
+                                        break;
+                                    }
+                                }
+                            }
+                            for (Article a : boxes2[j].content) {
+                                if (a.equals(articles[i])) {
+                                    if (j == 0) {
+                                        DataModel.getSorteerrobot1().sendCommand("S2");
+                                        DataModel.getInpakrobot1().sendCommand("S1");
+                                        found =true;
+                                        break;
+                                    } else if (j == 1) {
+                                        DataModel.getSorteerrobot1().sendCommand("S2");
+                                        DataModel.getInpakrobot1().sendCommand("S2");
+                                        found =true;
+                                        break;
+                                    } else {
+                                        DataModel.getSorteerrobot1().sendCommand("S2");
+                                        found =true;
+                                        break;
+                                    }
+                                }
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                    //QRcode found, artikel zoeken in order.
                     return result.getText();
                 }
             }
