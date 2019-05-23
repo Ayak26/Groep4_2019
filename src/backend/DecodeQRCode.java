@@ -1,4 +1,5 @@
 package backend;
+
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
@@ -21,57 +22,48 @@ public class DecodeQRCode {
         try {
             Result result = new MultiFormatReader().decode(bitmap);
             System.out.println(result.getText());
-            for (int i = 0; i < articles.length-1; i++) {
-                if (Integer.parseInt(result.getText()) == articles[i].getId()) {
-                    boolean found = false;
-                    for (int j = 0; j < 3; j++) {
-                        if(!found) {
-                            for (Article a : boxes1[j].content) {
-                                if (a.equals(articles[i])) {
-                                    if (j == 0) {
-                                        DataModel.getSorteerrobot1().sendCommand("S1");
-                                        DataModel.getInpakrobot1().sendCommand("S1");
-                                        found =true;
-                                        break;
-                                    } else if (j == 1) {
-                                        DataModel.getSorteerrobot1().sendCommand("S1");
-                                        DataModel.getInpakrobot1().sendCommand("S2");
-                                        found =true;
-                                        break;
-                                    } else {
-                                        DataModel.getSorteerrobot1().sendCommand("S1");
-                                        found =true;
-                                        break;
-                                    }
-                                }
-                            }
-                            for (Article a : boxes2[j].content) {
-                                if (a.equals(articles[i])) {
-                                    if (j == 0) {
-                                        DataModel.getSorteerrobot1().sendCommand("S2");
-                                        DataModel.getInpakrobot1().sendCommand("S1");
-                                        found =true;
-                                        break;
-                                    } else if (j == 1) {
-                                        DataModel.getSorteerrobot1().sendCommand("S2");
-                                        DataModel.getInpakrobot1().sendCommand("S2");
-                                        found =true;
-                                        break;
-                                    } else {
-                                        DataModel.getSorteerrobot1().sendCommand("S2");
-                                        found =true;
-                                        break;
-                                    }
-                                }
-                            }
+            for (int j = 0; j < 3; j++) {
+                for (Article a : boxes1[j].content) {
+                    if (a.getId() == Integer.parseInt(result.getText())) {
+                        if (j == 0) {
+                            DataModel.getSorteerrobot1().sendCommand("S1");
+                            DataModel.getInpakrobot1().sendCommand("S1");
+                            return result.getText();
+                        } else if (j == 1) {
+                            DataModel.getSorteerrobot1().sendCommand("S1");
+                            DataModel.getInpakrobot1().sendCommand("S2");
+                            return result.getText();
                         } else {
-                            break;
+                            DataModel.getSorteerrobot1().sendCommand("S1");
+                            return result.getText();
                         }
                     }
-                    //QRcode found, artikel zoeken in order.
-                    return result.getText();
+                }
+                for (Article a : boxes2[j].content) {
+                    if (a.getId() == Integer.parseInt(result.getText())) {
+                        if (j == 0) {
+                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            DataModel.getInpakrobot1().sendCommand("S1");
+                            return result.getText();
+                        } else if (j == 1) {
+                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            DataModel.getInpakrobot1().sendCommand("S2");
+                            return result.getText();
+                        } else {
+                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            return result.getText();
+                        }
+                    }
                 }
             }
+//            for (int i = 0; i < articles.length - 1; i++) {
+//                if (Integer.parseInt(result.getText()) == articles[i].getId()) {
+//
+//
+//                    //QRcode found, artikel zoeken in order.
+//                    return result.getText();
+//                }
+//            }
         } catch (NotFoundException e) {
             return null;
         }
