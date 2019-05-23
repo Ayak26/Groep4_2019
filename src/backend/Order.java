@@ -21,6 +21,7 @@ public class Order {
                 "ORDER BY size DESC");
         ArrayList<Integer> id_list = new ArrayList<>();
 
+        //loop through the resultset to fill the list of quantitys returned for each article
         try {
             while (rs.next()) {
                 id_list.add(rs.getInt(1));
@@ -67,6 +68,9 @@ public class Order {
         return article_list;
     }
 
+    /**
+     * print the order and all of its articles to the console
+     */
     public void print() {
         System.out.println("backend.Order nummer: " + orderNr);
         for (Article article : article_list) {
@@ -74,8 +78,7 @@ public class Order {
         }
     }
 
-    public Article[] getArticle_listDecr() {
-        // sort on decreasing size
+    public Article[] getArticle_list() {
         return article_list;
     }
 

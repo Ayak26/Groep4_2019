@@ -27,7 +27,7 @@ public class PackingRobot extends Robot {
 
     public void packOrder(Order order) {
 
-        Article[] article_list = order.getArticle_listDecr();
+        Article[] article_list = order.getArticle_list();
 
 //        System.out.println(one);
         long startTime = System.nanoTime();
