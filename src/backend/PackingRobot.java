@@ -48,6 +48,17 @@ public class PackingRobot extends Robot {
     }
 
 
+    /**
+     * First check of all boxes are empty, next loop through the boxes and check if the current box is full.
+     *
+     * Now he checks if this is the first box or if this specific box is empty, because if so he sets this box as best fit.
+     * After that he checks if the current box is fuller that the current best fit and if the space that is left is enough to accomadate the current article.
+     * if so, he sets the current box as best fit
+     * this repeats until we have run out of boxes
+     *
+     * @param article is to be checked in which box it fits the best
+     * @return the box which is the best fit for the given article
+     */
     public Box bestFit(Article article) {
         Box best_fit = null;
         if (boxes[0].empty() && boxes[1].empty() && boxes[2].empty()) {
