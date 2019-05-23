@@ -33,6 +33,7 @@ public class PackingRobot extends Robot {
         long startTime = System.nanoTime();
 
         for (Article article : article_list) {
+//            System.out.println(article.toString());
             Box best_fit = bestFit(article);
             best_fit.addContent(article);
         }
@@ -66,7 +67,7 @@ public class PackingRobot extends Robot {
             return boxes[0];
         }
         for (Box box : boxes) {
-            if (box.spaceLeft() != 0) {
+            if (box.spaceLeft() >= article.getSize()) {
 
                 System.out.println("current box: " + box.name);
 
@@ -75,7 +76,7 @@ public class PackingRobot extends Robot {
                     best_fit = box;
                 }
 
-                if (box.spaceLeft() < best_fit.spaceLeft() && box.spaceLeft() >= article.getSize()) {
+                if (box.spaceLeft() < best_fit.spaceLeft()) {
 
                     System.out.println(article.getName() + " set to " + box.name + " because this box is a better fit for the article");
                     best_fit = box;
