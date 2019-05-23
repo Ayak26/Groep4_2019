@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Box {
     public ArrayList<Article> content = new ArrayList<>();
     public int size = 0;
+    public ArrayList<String> path;
 
     public void setSize(int size){
         this.size = size;
@@ -21,6 +22,13 @@ public class Box {
         }
         return space;
     }
+
+    public void setPath(){
+        path = new ArrayList<>();
+
+
+    }
+
 
     @Override
     public String toString() {
