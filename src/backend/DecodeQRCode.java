@@ -22,17 +22,17 @@ public class DecodeQRCode {
                 for (Article a : DataModel.getInpakrobot1().getBoxes()[j].content) {
                     if (a.getId() == Integer.parseInt(result.getText()) && !a.isPacked()) {
                         if (j == 0) {
-                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            DataModel.getSorteerrobot1().sendCommand("S1");
                             DataModel.getInpakrobot1().sendCommand("S1");
                             a.setPacked(true);
                             return result.getText();
                         } else if (j == 1) {
-                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            DataModel.getSorteerrobot1().sendCommand("S1");
                             DataModel.getInpakrobot1().sendCommand("S2");
                             a.setPacked(true);
                             return result.getText();
                         } else {
-                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            DataModel.getSorteerrobot1().sendCommand("S1");
                             a.setPacked(true);
                             return result.getText();
                         }
@@ -44,12 +44,12 @@ public class DecodeQRCode {
                     if (a.getId() == Integer.parseInt(result.getText()) && !a.isPacked()) {
                         if (j == 0) {
                             DataModel.getSorteerrobot1().sendCommand("S2");
-                            DataModel.getInpakrobot2().sendCommand("S1");
+                            //DataModel.getInpakrobot2().sendCommand("S1");
                             a.setPacked(true);
                             return result.getText();
                         } else if (j == 1) {
                             DataModel.getSorteerrobot1().sendCommand("S2");
-                            DataModel.getInpakrobot2().sendCommand("S2");
+                            //DataModel.getInpakrobot2().sendCommand("S2");
                             a.setPacked(true);
                             return result.getText();
                         } else {
@@ -61,7 +61,7 @@ public class DecodeQRCode {
                 }
             }
         } catch (NotFoundException e) {
-            e.printStackTrace();
+            return null;
         }
         return result.getText();
     }

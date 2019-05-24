@@ -47,6 +47,7 @@ public abstract class Robot {
     }
 
     public void closeConnection() {
+        sendCommand("OFF");
         sp.removeDataListener();
         if (sp.closePort()) {
             System.out.println("Port is closed :)");
