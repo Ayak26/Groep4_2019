@@ -14,9 +14,9 @@ public class PackingRobot extends Robot {
         boxes[2] = new Box(5, "three");
     }
 
-    public void setOrder(int order_id) {
+    public boolean setOrder(int order_id) {
         Order order = new Order(order_id);
-        packOrder(order);
+        return packOrder(order);
     }
 
     public void setBoxes(int size) {
@@ -25,31 +25,19 @@ public class PackingRobot extends Robot {
         boxes[2].setSize(size);
     }
 
-    public void packOrder(Order order) {
+    public boolean packOrder(Order order) {
 
         Article[] article_list = order.getArticle_list();
 
-//        System.out.println(one);
         long startTime = System.nanoTime();
 
         for (Article article : article_list) {
-            if (article.getSize() <= boxes[0].spaceLeft()) {
-                boxes[0].addContent(article);
-            System.out.println(article.getName() + " put in box one");
-            System.out.println(boxes[0].spaceLeft() + " space left");
-        } else if (article.getSize() <= boxes[1].spaceLeft()) {
-                boxes[1].addContent(article);
-            System.out.println(article.getName() + " put in box two");
-            System.out.println(boxes[1].spaceLeft() + " space left");
-        } else if (article.getSize() <= boxes[2].spaceLeft()) {
-                boxes[2].addContent(article);
-            System.out.println(article.getName() + " put in box three");
-            System.out.println(boxes[2].spaceLeft() + " space left");
-        } else {
-            System.out.println("all boxes are full");
-        }
-            //Box best_fit = bestFit(article);
-            //best_fit.addContent(article);
+            Box best_fit = bestFit(article);
+            if (best_fit != null) {
+                best_fit.addContent(article);
+            } else {
+                return false;
+            }
         }
         long endTime = System.nanoTime();
 
@@ -60,12 +48,13 @@ public class PackingRobot extends Robot {
         System.out.println(boxes[1].toString());
         System.out.println(boxes[2].toString());
 
+        return true;
     }
 
 
     /**
      * First check of all boxes are empty, next loop through the boxes and check if the current box is full.
-     *
+     * <p>
      * Now he checks if this is the first box or if this specific box is empty, because if so he sets this box as best fit.
      * After that he checks if the current box is fuller that the current best fit and if the space that is left is enough to accomadate the current article.
      * if so, he sets the current box as best fit
@@ -81,7 +70,7 @@ public class PackingRobot extends Robot {
             return boxes[0];
         }
         for (Box box : boxes) {
-            if (box.spaceLeft() != 0) {
+            if (box.spaceLeft() >= article.getSize()) {
 
                 System.out.println("current box: " + box.name);
 
@@ -90,13 +79,15 @@ public class PackingRobot extends Robot {
                     best_fit = box;
                 }
 
-                if (box.spaceLeft() < best_fit.spaceLeft() && box.spaceLeft() >= article.getSize()) {
+                if (box.spaceLeft() < best_fit.spaceLeft()) {
 
                     System.out.println(article.getName() + " set to " + box.name + " because this box is a better fit for the article");
                     best_fit = box;
                 } else {
                     System.out.println(box.spaceLeft() + " < " + best_fit.spaceLeft() + " && " + box.spaceLeft() + " >= " + article.getSize());
                 }
+            } else {
+                System.out.println(box.name + " is full");
             }
         }
 

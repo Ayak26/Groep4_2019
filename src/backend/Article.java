@@ -7,6 +7,7 @@ public class Article {
     private String name;
     private String colour;
     private int size;
+    private boolean packed;
 
 
     public Article(int id) {
@@ -71,5 +72,13 @@ public class Article {
      */
     public int getSize() {
         return size;
+    }
+
+    public boolean isPacked() {
+        return packed;
+    }
+
+    public void setPacked(boolean packed) {
+        this.packed = packed;
     }
 }

@@ -10,71 +10,59 @@ import java.io.File;
 import java.io.IOException;
 
 public class DecodeQRCode {
-    Box boxes1[] = DataModel.getInpakrobot1().getBoxes();
-    Box boxes2[] = DataModel.getInpakrobot2().getBoxes();
 
     public String DecodeQRCode(File qrCodeimage) throws IOException {
         BufferedImage bufferedImage = ImageIO.read(qrCodeimage);
         LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+        Result result = null;
         try {
-            boolean found = false;
-            Result result = new MultiFormatReader().decode(bitmap);
-            for (int j = 0; j < boxes1.length; j++) {
-                System.out.println("we");
-                if (!found) {
-                    System.out.println("hebben");
-                    for (Article a : boxes1[j].content) {
-                        System.out.println("veel");
-                        if (a.getId() == Integer.parseInt(result.getText())) {
-                            System.out.println("plezier");
-                            if (j == 0) {
-                                DataModel.getSorteerrobot1().sendCommand("S1");
-                                DataModel.getInpakrobot1().sendCommand("S1");
-                                System.out.println("0");
-                                return result.getText();
-                            } else if (j == 1) {
-
-                                DataModel.getSorteerrobot1().sendCommand("S1");
-                                DataModel.getInpakrobot1().sendCommand("S2");
-                                return result.getText();
-                            } else {
-                                DataModel.getSorteerrobot1().sendCommand("S1");
-                                return result.getText();
-                            }
+            result = new MultiFormatReader().decode(bitmap);
+            for (int j = 0; j < DataModel.getInpakrobot1().getBoxes().length; j++) {
+                for (Article a : DataModel.getInpakrobot1().getBoxes()[j].content) {
+                    if (a.getId() == Integer.parseInt(result.getText()) && !a.isPacked()) {
+                        if (j == 0) {
+                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            DataModel.getInpakrobot1().sendCommand("S1");
+                            a.setPacked(true);
+                            return result.getText();
+                        } else if (j == 1) {
+                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            DataModel.getInpakrobot1().sendCommand("S2");
+                            a.setPacked(true);
+                            return result.getText();
+                        } else {
+                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            a.setPacked(true);
+                            return result.getText();
                         }
                     }
-                    for (Article a : boxes2[j].content) {
-                        if (a.getId() == Integer.parseInt(result.getText())) {
-                            if (j == 0) {
-                                DataModel.getSorteerrobot1().sendCommand("S2");
-                                DataModel.getInpakrobot2().sendCommand("S1");
-                                return result.getText();
-                            } else if (j == 1) {
-                                DataModel.getSorteerrobot1().sendCommand("S2");
-                                DataModel.getInpakrobot2().sendCommand("S2");
-                                return result.getText();
-                            } else {
-                                DataModel.getSorteerrobot1().sendCommand("S2");
-                                return result.getText();
-                            }
-                        }
-                    }
-                } else {
-                    return result.getText();
                 }
             }
-//            for (int i = 0; i < articles.length - 1; i++) {
-//                if (Integer.parseInt(result.getText()) == articles[i].getId()) {
-//
-//
-//                    //QRcode found, artikel zoeken in order.
-//                    return result.getText();
-//                }
-//            }
+            for (int j = 0; j < DataModel.getInpakrobot2().getBoxes().length; j++) {
+                for (Article a : DataModel.getInpakrobot2().getBoxes()[j].content) {
+                    if (a.getId() == Integer.parseInt(result.getText()) && !a.isPacked()) {
+                        if (j == 0) {
+                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            DataModel.getInpakrobot2().sendCommand("S1");
+                            a.setPacked(true);
+                            return result.getText();
+                        } else if (j == 1) {
+                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            DataModel.getInpakrobot2().sendCommand("S2");
+                            a.setPacked(true);
+                            return result.getText();
+                        } else {
+                            DataModel.getSorteerrobot1().sendCommand("S2");
+                            a.setPacked(true);
+                            return result.getText();
+                        }
+                    }
+                }
+            }
         } catch (NotFoundException e) {
-            return null;
+            e.printStackTrace();
         }
-        return null;
+        return result.getText();
     }
 }

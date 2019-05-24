@@ -91,7 +91,7 @@ public class Database {
     }
 
     /**
-     * @return a boolean containing if the statement is actually closed
+     * @return a boolean containing if the connection is actually closed
      */
     public static boolean isClosed() {
         try {

@@ -17,34 +17,18 @@ import java.util.ResourceBundle;
 public class PackingRobot implements Initializable{
 
     @FXML
-    private Button home;
+    private Button home, Detecteren, refresh;
 
     @FXML
-    private Button Detecteren;
+    private boolean detectbool = false, refreshbool = false;
 
     @FXML
-    private Button refresh;
-
-    @FXML
-    private boolean detectbool = false;
-
-    @FXML
-    private boolean refreshbool = false;
-
-    @FXML
-    private ImageView start_stop;
-
-    @FXML
-    private ImageView detectimage;
+    private ImageView start_stop, detectimage;
 
     @FXML
     private Image camimage;
 
 
-//    Mat frame = new Mat();
-//    VideoCapture webSource = new VideoCapture(0);
-//    MatOfByte mem = new MatOfByte();
-//    protected volatile boolean runnable = false;
 
     @FXML
     private void goHome() throws Exception {
