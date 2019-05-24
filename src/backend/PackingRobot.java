@@ -33,8 +33,23 @@ public class PackingRobot extends Robot {
         long startTime = System.nanoTime();
 
         for (Article article : article_list) {
-            Box best_fit = bestFit(article);
-            best_fit.addContent(article);
+            if (article.getSize() <= boxes[0].spaceLeft()) {
+                boxes[0].addContent(article);
+            System.out.println(article.getName() + " put in box one");
+            System.out.println(boxes[0].spaceLeft() + " space left");
+        } else if (article.getSize() <= boxes[1].spaceLeft()) {
+                boxes[1].addContent(article);
+            System.out.println(article.getName() + " put in box two");
+            System.out.println(boxes[1].spaceLeft() + " space left");
+        } else if (article.getSize() <= boxes[2].spaceLeft()) {
+                boxes[2].addContent(article);
+            System.out.println(article.getName() + " put in box three");
+            System.out.println(boxes[2].spaceLeft() + " space left");
+        } else {
+            System.out.println("all boxes are full");
+        }
+            //Box best_fit = bestFit(article);
+            //best_fit.addContent(article);
         }
         long endTime = System.nanoTime();
 

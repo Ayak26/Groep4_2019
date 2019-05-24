@@ -48,11 +48,11 @@ public class DecodeQRCode {
                         if (a.getId() == Integer.parseInt(result.getText())) {
                             if (j == 0) {
                                 DataModel.getSorteerrobot1().sendCommand("S2");
-                                DataModel.getInpakrobot1().sendCommand("S1");
+                                DataModel.getInpakrobot2().sendCommand("S1");
                                 return result.getText();
                             } else if (j == 1) {
                                 DataModel.getSorteerrobot1().sendCommand("S2");
-                                DataModel.getInpakrobot1().sendCommand("S2");
+                                DataModel.getInpakrobot2().sendCommand("S2");
                                 return result.getText();
                             } else {
                                 DataModel.getSorteerrobot1().sendCommand("S2");

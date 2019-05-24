@@ -19,7 +19,6 @@ public class Article {
         if (rs != null) {
             try {
                 while (rs.next()) {
-//                    System.out.println(rs.getString(1));
                     name = rs.getString(1);
                     size = rs.getInt(2);
                     colour = rs.getString(3);
