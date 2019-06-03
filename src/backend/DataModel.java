@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class DataModel {
     private static boolean turned_on;
-    private static PackingRobot inpakrobot1;
-    private static PackingRobot inpakrobot2;
+    public static PackingRobot inpakrobot1;
+    public static PackingRobot inpakrobot2;
     private static SortingRobot sorteerrobot1;
     ArrayList<Integer> orders;
 

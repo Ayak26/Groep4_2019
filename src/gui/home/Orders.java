@@ -63,6 +63,7 @@ public class Orders implements Initializable {
     }
     @FXML
     private void goAlpha() throws Exception{
+
         Stage stage = (Stage)home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("SortRobot.fxml"));
         stage.setScene(new Scene(root));
