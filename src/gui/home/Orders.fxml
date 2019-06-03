@@ -11,14 +11,19 @@
     <children>
         <ImageView fx:id="start_stop" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="390.0" onMouseClicked="#start_stop" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="home" layoutX="25.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#goHome" prefWidth="50.0" text="Home" />
-      <TableView id="table" layoutX="277.0" layoutY="124.0" prefHeight="200.0" prefWidth="247.0">
+      <TableView id="table" fx:id="table" layoutX="277.0" layoutY="124.0" onMouseClicked="#clickItem" prefHeight="200.0" prefWidth="247.0">
         <columns>
-            <TableColumn id="col_oid" prefWidth="75.0" text="Order nr" />
-          <TableColumn prefWidth="100.0" text="Progressie" />
-            <TableColumn prefWidth="75.0" text="Lijn" />
+            <TableColumn id="col_oid" fx:id="ordernr" prefWidth="75.0" text="Order nr" />
         </columns>
       </TableView>
       <Button fx:id="createorder" layoutX="307.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#goCreateorder" text="Order aanmaken" />
       <Label layoutX="351.0" layoutY="35.0" text="Product kiezen" />
+      <Label fx:id="idtext" layoutX="546.0" layoutY="145.0" text="ID:" visible="false" />
+      <Label layoutX="564.0" layoutY="230.0" />
+      <TableView id="table" fx:id="articletable" layoutX="555.0" layoutY="180.0" onMouseClicked="#clickItem" prefHeight="143.0" prefWidth="189.0">
+         <columns>
+            <TableColumn id="col_oid" fx:id="articlenr" prefWidth="75.0" text="Artikel ID" />
+         </columns>
+      </TableView>
     </children>
 </Pane>

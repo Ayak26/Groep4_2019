@@ -3,9 +3,9 @@ package backend;
 import javafx.beans.property.SimpleStringProperty;
 
 public class OrderInfo {
-    private SimpleStringProperty id;
+    public SimpleStringProperty id;
 
-    OrderInfo(String id){
+    public OrderInfo(String id){
         this.id = new SimpleStringProperty(id);
 
     }

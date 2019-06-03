@@ -2,6 +2,7 @@ package gui.home;
 
 import backend.Database;
 //import backend.Order;
+import backend.OrderInfo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,14 +11,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,15 +32,29 @@ import java.util.logging.Logger;
 
 public class Orders implements Initializable {
 
+    Database c = new Database();
     @FXML
     private Button home, createorder;
 
     @FXML
     private ImageView start_stop;
     @FXML
-    private TableView<ModelTable> table;
+   private TableView<OrderInfo> table;
     @FXML
-    private TableColumn<ModelTable, String> col_id;
+    private TableColumn<OrderInfo, String> ordernr;
+
+
+    @FXML
+    private TableView<OrderInfo> articletable;
+    @FXML
+    private TableColumn<OrderInfo, String> articlenr;
+
+    @FXML
+    private Label idtext;
+ //   @FXML
+//    private TableView<OrderInfo> table;
+    //@FXML
+   // private TableColumn<OrderInfo, String> ordernr;
 
 
 
@@ -55,6 +73,30 @@ public class Orders implements Initializable {
     }
 
     @FXML
+    public void clickItem(MouseEvent event)
+    {
+        if (event.getClickCount() == 2) //Checking double click
+        {
+            System.out.println(table.getSelectionModel().getSelectedItem().getId());
+            idtext.setText("Order ID: " + table.getSelectionModel().getSelectedItem().getId());
+            idtext.setVisible(true);
+            ObservableList<OrderInfo> article = FXCollections.observableArrayList();
+            Database.createStatement();
+            ResultSet rs = Database.executeQuery("SELECT StockItemID FROM orderlines WHERE OrderID =" + table.getSelectionModel().getSelectedItem().getId()) ;
+            try {
+            while(rs.next()){
+                article.add(new OrderInfo(rs.getString("StockItemID")));
+                articlenr.setCellValueFactory(new PropertyValueFactory<OrderInfo, String>("id"));
+                }
+            articletable.setItems(article);
+                }catch(Exception f){
+                System.out.println("ERROR");
+
+            }
+
+        }
+    }
+    @FXML
     private void start_stop() {
         StandardGuiMethods.start_stop(start_stop);
     }
@@ -72,30 +114,29 @@ public class Orders implements Initializable {
 
 
         try{
-            ResultSet rs = Database.executeQuery("SELECT OrderID from orders");
-
-            ArrayList<ModelTable> ModelTable = new ArrayList<>();
-            while(rs.next()){
-                ModelTable mt = new ModelTable();
-                mt.setId(rs.getString("OrderID"));
-                //oblist.add(new ModelTable(rs.getString("OrderID")));
+           ObservableList<OrderInfo> items = FXCollections.observableArrayList();
+            ResultSet rs = Database.executeQuery("SELECT OrderID from orders WHERE");
+           while(rs.next()){
+                items.add(new OrderInfo(rs.getString("OrderID")));
+                ordernr.setCellValueFactory(new PropertyValueFactory<OrderInfo, String>("id"));
             }
-            for (ModelTable m: ModelTable){
-                col_id.setCellValueFactory(new PropertyValueFactory<>(m.id));
+            table.setItems(items);
 
-            }
+//            for (ModelTable m: ModelTable){
+//                col_id.setCellValueFactory(new PropertyValueFactory<>(m.id));
+//
+//            }
 
                 
 
 
-        }catch (SQLException ex){
+        }catch (Exception ex){
             Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
         //col_id.setCellValueFactory(new PropertyValueFactory<>("OrderID"));
-
-        //table.setItems(oblist);
+        //table.setItems(data);
 
     }
 }

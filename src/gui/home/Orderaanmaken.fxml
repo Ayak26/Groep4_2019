@@ -9,17 +9,17 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.home.Orderaanmaken">
    <children>
-      <Button fx:id="home" layoutX="25.0" layoutY="15.0" prefWidth="50" mnemonicParsing="false" onMouseClicked="#goHome" text="Home" />
-      <Button fx:id="back" layoutX="25.0" layoutY="56.0" prefWidth="50" mnemonicParsing="false" onMouseClicked="#goBack" text="Terug" />
+      <Button fx:id="home" layoutX="25.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#goHome" prefWidth="50" text="Home" />
+      <Button fx:id="back" layoutX="25.0" layoutY="56.0" mnemonicParsing="false" onMouseClicked="#goBack" prefWidth="50" text="Terug" />
        <ImageView fx:id="start_stop" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="390.0" onMouseClicked="#start_stop" pickOnBounds="true" preserveRatio="true" />
-      <TableView layoutX="300.0" layoutY="107.0" prefHeight="200.0" prefWidth="227.0">
+      <TableView fx:id="createtable" layoutX="300.0" layoutY="107.0" prefHeight="200.0" prefWidth="227.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Product" />
-          <TableColumn prefWidth="75.0" text="Aantal" />
-            <TableColumn prefWidth="75.0" text="Verwijder" />
+          <TableColumn fx:id="articlenr" prefWidth="75.0" text="Article" />
+          <TableColumn prefWidth="75.0" text="Amount" />
+            <TableColumn prefWidth="75.0" text="Delete" />
         </columns>
       </TableView>
-      <Button fx:id="SelectProduct" layoutX="300.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#goSelectProduct" text="Artikel toevoegen" />
-      <Label layoutX="345.0" layoutY="35.0" text="Order aanmaken" />
+      <Button fx:id="SelectProduct" layoutX="300.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#goSelectProduct" text="Add article" />
+      <Label layoutX="345.0" layoutY="35.0" text="Create order" />
    </children>
 </Pane>
