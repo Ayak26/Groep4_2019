@@ -6,14 +6,13 @@
 // ------ Servo objects ------
 Servo s1;
 Servo s2;
-
 // ------ Constants ------
-const int CLOSED = 90, OPEN = 135, INTERVAL_SERVO1 = 600, INTERVAL_SERVO2 = 1200, INTERVAL_CLOSE = 400;
+const int CLOSED = 90, OPEN = 130, INTERVAL_SERVO1 = 10000, INTERVAL_SERVO2 = 13000, INTERVAL_CLOSE = 4500;
 const byte num_chars = 32;
 
 // ------ variables ------
 char received_chars[num_chars];   // an array to store the received data
-int index_servo1 = 0, index_servo2 = 0;
+int index_servo1 = 0, index_servo2 = 0, index_servo3;
 unsigned long timing_servo1[5], timing_servo2[5];
 unsigned long current_time, close_servo1, close_servo2;
 
@@ -28,6 +27,8 @@ void setup() {
   s1.write(CLOSED);
   s2.attach(9);
   s2.write(CLOSED);
+//  pinMode(13, OUTPUT);
+//  pinMode(12, OUTPUT);
   pinMode(E1, OUTPUT);
   pinMode(M1, OUTPUT);
   for (int i = 10; i <= 12 ; ++i) {
@@ -39,8 +40,8 @@ void setup() {
 void loop() {
   current_time = millis();
   serialInput();
-  if (on) {
-    motor(255);
+  if (on) {  
+    motor(130);
     checkServo1();
     checkServo2();
   } else {
@@ -57,6 +58,8 @@ void motor(int PWM) {
   analogWrite(E1, PWM);
   digitalWrite(M1, HIGH);
 }
+
+
 
 /*
   Reads the serial input when it is available
@@ -95,9 +98,15 @@ void serialInput() {
 void readCommand() {
   if (strcmp(received_chars, "ON") == 0) {
     on = true;
+
     Serial.println("AMON");
-  } else if (strcmp(received_chars, "OFF") == 0) {
+      motor(0);
+  }
+  else if (strcmp(received_chars, "OFF") == 0) {
+
     on = false;
+    //  motor(0);
+
     Serial.println("AMOFF");
   } else if (strcmp(received_chars, "S1") == 0) {
     timing_servo1[index_servo1] = current_time;
@@ -113,7 +122,8 @@ void readCommand() {
     } else {
       index_servo2 += 1;
     }
-  } else if (strcmp(received_chars, "CONNECT") == 0) {
+  } 
+  else if (strcmp(received_chars, "CONNECT") == 0) {
     Serial.println("CONNECTED");
   } else {
     Serial.println("Command unknown");
@@ -126,7 +136,12 @@ void readCommand() {
 void checkServo1 () {
   if (servo1) {
     if ((unsigned long)(current_time - close_servo1) >= INTERVAL_CLOSE) {
-      s1.write(CLOSED);
+      s1.write(120);
+      delay(100);
+      s1.write(110);
+      delay(100);
+      s1.write(100);
+      s1.write(90);
       Serial.println("S1:CLOSED");
       servo1 = false;
     }
@@ -158,7 +173,7 @@ void checkServo2 () {
       if ((unsigned long)(current_time - timing_servo2[i]) >= INTERVAL_SERVO2 && timing_servo2[i] != 0) {
         timing_servo2[i] = 0;
         close_servo2 = current_time;
-        s2.write(OPEN);
+        s2.write(130);
         Serial.println("S2:OPEN");
         servo2 = true;
       }
