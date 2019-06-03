@@ -32,27 +32,23 @@ void setup() {
   s1.write(CLOSED);
   s2.attach(9);
   s2.write(CLOSED);
-//  pinMode(13, OUTPUT);
-//  pinMode(12, OUTPUT);
   pinMode(E1, OUTPUT);
   pinMode(M1, OUTPUT);
-  for (int i = 10; i <= 12 ; ++i) {
-    pinMode(i, OUTPUT);
-  }
   Serial.begin(9600);
 }
 
 void loop() {
   digitalWrite (laserPin, HIGH);
   sensorValue = analogRead(sensorPin); // read the value from the sensor
-Serial.println(sensorValue); //prints the values coming from the sensor on the 
+  Serial.println(sensorValue); //prints the values coming from the sensor on the
   current_time = millis();
   serialInput();
-  if (on) {  
+  if (on) {
     motor(130);
     checkServo1();
     checkServo2();
   } else {
+    digitalWrite (laserPin, LOW);
     motor(0);
   }
 }
@@ -106,15 +102,10 @@ void serialInput() {
 void readCommand() {
   if (strcmp(received_chars, "ON") == 0) {
     on = true;
-
     Serial.println("AMON");
-      motor(0);
   }
   else if (strcmp(received_chars, "OFF") == 0) {
-
     on = false;
-    //  motor(0);
-
     Serial.println("AMOFF");
   } else if (strcmp(received_chars, "S1") == 0) {
     timing_servo1[index_servo1] = current_time;
