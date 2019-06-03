@@ -2,6 +2,7 @@ package gui.home;
 
 import backend.Database;
 import backend.OrderInfo;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class Orderaanmaken  implements Initializable {
     @FXML
-    private Button home, back, SelectProduct;
+    private Button home, back, addarticle, complete;
 
     @FXML
     private ImageView start_stop;
@@ -31,6 +32,10 @@ public class Orderaanmaken  implements Initializable {
     private TableView<OrderInfo> createtable;
     @FXML
     private TableColumn<OrderInfo, String> articlenr;
+    @FXML
+    private TableView<String> selectarticletable;
+    @FXML
+    private TableColumn<Orderaanmaken, String> selectarticlenr;
 
     @FXML
     private void goHome() throws Exception {
@@ -39,6 +44,22 @@ public class Orderaanmaken  implements Initializable {
         stage.setScene(new Scene(root));
     }
 
+    ObservableList<String> newarticles = FXCollections.observableArrayList();
+
+    ObservableList<OrderInfo> items = FXCollections.observableArrayList();
+
+    @FXML
+    private void addArticlebtn() throws Exception{
+        newarticles.add(createtable.getSelectionModel().getSelectedItem().getId());
+        for (int i = 0; i < newarticles.size(); i++) {
+            System.out.println(newarticles.get(i));
+         //   selectarticletable.setItems(newarticles);
+         //   selectarticlenr.setCellValueFactory(new PropertyValueFactory<Orderaanmaken, String >("articlenr"));
+        }
+
+
+
+    }
     @FXML
     private void goBack() throws Exception {
         Stage stage = (Stage)back.getScene().getWindow();
@@ -46,11 +67,8 @@ public class Orderaanmaken  implements Initializable {
         stage.setScene(new Scene(root));
     }
 
-    @FXML
-    private void goSelectProduct() throws Exception {
-        Stage stage = (Stage)SelectProduct.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("SelectProduct.fxml"));
-        stage.setScene(new Scene(root));
+    private void addArticle() throws Exception{
+        System.out.println("SD");
     }
 
     @FXML
@@ -59,22 +77,21 @@ public class Orderaanmaken  implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(Main.on) {
+
+        if (Main.on) {
             start_stop.setImage(new Image("file:assets/stop.png"));
         } else {
             start_stop.setImage(new Image("file:assets/start.png"));
         }
-        ObservableList<OrderInfo> article = FXCollections.observableArrayList();
-        Database.createStatement();
-        ResultSet rs = Database.executeQuery("SELECT StockItemID FROM orderlines WHERE OrderID =" + table.getSelectionModel().getSelectedItem().getId()) ;
         try {
-            while(rs.next()){
-                article.add(new OrderInfo(rs.getString("StockItemID")));
+            ResultSet rs = Database.executeQuery("SELECT StockItemID from stockitems");
+            while (rs.next()) {
+                items.add(new OrderInfo(rs.getString("StockItemId")));
                 articlenr.setCellValueFactory(new PropertyValueFactory<OrderInfo, String>("id"));
             }
-            articletable.setItems(article);
-        }catch(Exception f){
-            System.out.println("ERROR");
+            createtable.setItems(items);
 
-    }
-}
+        } catch( Exception E) {
+            System.out.println("byebye");
+        }
+    }}

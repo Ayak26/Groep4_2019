@@ -15,11 +15,15 @@
       <TableView fx:id="createtable" layoutX="300.0" layoutY="107.0" prefHeight="200.0" prefWidth="227.0">
         <columns>
           <TableColumn fx:id="articlenr" prefWidth="75.0" text="Article" />
-          <TableColumn prefWidth="75.0" text="Amount" />
-            <TableColumn prefWidth="75.0" text="Delete" />
         </columns>
       </TableView>
-      <Button fx:id="SelectProduct" layoutX="300.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#goSelectProduct" text="Add article" />
+      <Button fx:id="addarticle" onMouseClicked="#addArticlebtn" layoutX="300.0" layoutY="317.0" mnemonicParsing="false" text="Add article" />
       <Label layoutX="345.0" layoutY="35.0" text="Create order" />
+      <TableView fx:id="selectarticletable" layoutX="557.0" layoutY="172.0" prefHeight="136.0" prefWidth="200.0">
+         <columns>
+            <TableColumn fx:id="selectarticlenr" prefWidth="75.0" text="Article" />
+         </columns>
+      </TableView>
+      <Button fx:id="complete" layoutX="442.0" layoutY="317.0" mnemonicParsing="false"  text="Complete" />
    </children>
 </Pane>

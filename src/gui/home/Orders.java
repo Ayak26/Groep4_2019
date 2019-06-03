@@ -31,11 +31,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Orders implements Initializable {
-
-    Database c = new Database();
     @FXML
-    private Button home, createorder;
-
+    private Button home, createorder, alphabtn, betabtn;
     @FXML
     private ImageView start_stop;
     @FXML
@@ -62,6 +59,18 @@ public class Orders implements Initializable {
     private void goHome() throws Exception {
         Stage stage = (Stage)home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        stage.setScene(new Scene(root));
+    }
+    @FXML
+    private void goAlpha() throws Exception{
+        Stage stage = (Stage)home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("SortRobot.fxml"));
+        stage.setScene(new Scene(root));
+    }
+    @FXML
+    private void goBeta() throws Exception{
+        Stage stage = (Stage)home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("SortRobot.fxml"));
         stage.setScene(new Scene(root));
     }
 
@@ -115,7 +124,7 @@ public class Orders implements Initializable {
 
         try{
            ObservableList<OrderInfo> items = FXCollections.observableArrayList();
-            ResultSet rs = Database.executeQuery("SELECT OrderID from orders WHERE");
+            ResultSet rs = Database.executeQuery("SELECT OrderID from orders WHERE PickingCompletedWhen is null");
            while(rs.next()){
                 items.add(new OrderInfo(rs.getString("OrderID")));
                 ordernr.setCellValueFactory(new PropertyValueFactory<OrderInfo, String>("id"));
