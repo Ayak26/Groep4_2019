@@ -2,18 +2,21 @@
 
 #define M1 4
 #define E1 5
+int sensorPin = A0;
+int sensorValue;
+int laserPin = 13;
 
 // ------ Servo objects ------
 Servo s1;
 Servo s2;
-
+Servo s3;
 // ------ Constants ------
-const int CLOSED = 90, OPEN = 135, INTERVAL_SERVO1 = 600, INTERVAL_SERVO2 = 1200, INTERVAL_CLOSE = 400;
+const int CLOSED = 90, OPEN = 20, INTERVAL_SERVO1 = 6000, INTERVAL_SERVO2 = 1200, INTERVAL_CLOSE = 5200;
 const byte num_chars = 32;
 
 // ------ variables ------
 char received_chars[num_chars];   // an array to store the received data
-int index_servo1 = 0, index_servo2 = 0;
+int index_servo1 = 0, index_servo2 = 0, index_servo3;
 unsigned long timing_servo1[5], timing_servo2[5];
 unsigned long current_time, close_servo1, close_servo2;
 
@@ -24,10 +27,13 @@ bool on = false,
      servo2 = false;     //false is closed, true is open
 
 void setup() {
+  pinMode (laserPin, OUTPUT);
   s1.attach(8);
   s1.write(CLOSED);
   s2.attach(9);
   s2.write(CLOSED);
+//  pinMode(13, OUTPUT);
+//  pinMode(12, OUTPUT);
   pinMode(E1, OUTPUT);
   pinMode(M1, OUTPUT);
   for (int i = 10; i <= 12 ; ++i) {
@@ -37,10 +43,13 @@ void setup() {
 }
 
 void loop() {
+  digitalWrite (laserPin, HIGH);
+  sensorValue = analogRead(sensorPin); // read the value from the sensor
+Serial.println(sensorValue); //prints the values coming from the sensor on the 
   current_time = millis();
   serialInput();
-  if (on) {
-    motor(255);
+  if (on) {  
+    motor(130);
     checkServo1();
     checkServo2();
   } else {
@@ -55,8 +64,10 @@ void loop() {
 */
 void motor(int PWM) {
   analogWrite(E1, PWM);
-  digitalWrite(M1, HIGH);
+  digitalWrite(M1, LOW);
 }
+
+
 
 /*
   Reads the serial input when it is available
@@ -95,9 +106,15 @@ void serialInput() {
 void readCommand() {
   if (strcmp(received_chars, "ON") == 0) {
     on = true;
+
     Serial.println("AMON");
-  } else if (strcmp(received_chars, "OFF") == 0) {
+      motor(0);
+  }
+  else if (strcmp(received_chars, "OFF") == 0) {
+
     on = false;
+    //  motor(0);
+
     Serial.println("AMOFF");
   } else if (strcmp(received_chars, "S1") == 0) {
     timing_servo1[index_servo1] = current_time;
@@ -113,7 +130,8 @@ void readCommand() {
     } else {
       index_servo2 += 1;
     }
-  } else if (strcmp(received_chars, "CONNECT") == 0) {
+  }
+  else if (strcmp(received_chars, "CONNECT") == 0) {
     Serial.println("CONNECTED");
   } else {
     Serial.println("Command unknown");
@@ -126,7 +144,19 @@ void readCommand() {
 void checkServo1 () {
   if (servo1) {
     if ((unsigned long)(current_time - close_servo1) >= INTERVAL_CLOSE) {
-      s1.write(CLOSED);
+      s1.write(30);
+      delay(100);
+      s1.write(40);
+      delay(100);
+      s1.write(50);
+      delay(100);
+      s1.write(60);
+      delay(100);
+      s1.write(70);
+      delay(100);
+      s1.write(80);
+      delay(100);
+      s1.write(90);
       Serial.println("S1:CLOSED");
       servo1 = false;
     }
@@ -158,7 +188,7 @@ void checkServo2 () {
       if ((unsigned long)(current_time - timing_servo2[i]) >= INTERVAL_SERVO2 && timing_servo2[i] != 0) {
         timing_servo2[i] = 0;
         close_servo2 = current_time;
-        s2.write(OPEN);
+        s2.write(130);
         Serial.println("S2:OPEN");
         servo2 = true;
       }
