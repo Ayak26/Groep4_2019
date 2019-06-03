@@ -5,12 +5,14 @@ import backend.OrderInfo;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,8 +20,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class Orderaanmaken  implements Initializable {
@@ -38,27 +47,59 @@ public class Orderaanmaken  implements Initializable {
     private TableColumn<Orderaanmaken, String> selectarticlenr;
 
     @FXML
+    private Label articletext;
+    @FXML
     private void goHome() throws Exception {
         Stage stage = (Stage)home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         stage.setScene(new Scene(root));
     }
 
-    ObservableList<String> newarticles = FXCollections.observableArrayList();
+     private ArrayList<String> newarticles = new ArrayList<>();
+   // ObservableList<String> newarticles = FXCollections.observableArrayList();
 
     ObservableList<OrderInfo> items = FXCollections.observableArrayList();
 
     @FXML
     private void addArticlebtn() throws Exception{
         newarticles.add(createtable.getSelectionModel().getSelectedItem().getId());
+        String textfield = "\n";
+
         for (int i = 0; i < newarticles.size(); i++) {
             System.out.println(newarticles.get(i));
-         //   selectarticletable.setItems(newarticles);
-         //   selectarticlenr.setCellValueFactory(new PropertyValueFactory<Orderaanmaken, String >("articlenr"));
+            textfield += newarticles.get(i) + "\n";
+          //    selectarticletable.setItems(newarticles);
+          //  selectarticlenr.setCellValueFactory(new PropertyValueFactory<String, String>("articlenr"));
+        }
+        articletext.setVisible(true);
+        articletext.setText(textfield);
+        final String fieldtext = textfield;
+        complete.setOnAction(actionEvent -> insertToDatabase(newarticles));
+
+
+    }
+
+    private void insertToDatabase(ArrayList textfield) {
+        try {
+            int maxID = 0;
+            Database.openConnection();
+            Database.createStatement();
+            ResultSet rs2 = Database.executeQuery("SELECT OrderID from orders Order By OrderID DESC");
+            if (rs2.next()) {
+                maxID += rs2.getInt("OrderID");
+            }
+
+            int maxIDplus = maxID + 1;
+           // String query = "INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, Comments, DeliveryInstructions, InternalComments, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES (?, '1033', '1033', '1033', NULL, '2019-05-19', '2019-05-26', NULL, '1', NULL, NULL, NULL, NULL, '1033', '2019-05-19 00:00:00')" ;
+            Database.executeUpdate("INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, Comments, DeliveryInstructions, InternalComments, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES ('"+maxIDplus+"', '804',  '1033', '1033', '1033', NULL, '2019-05-26', '2019-05-19',  NULL, '1', NULL, NULL, NULL, NULL, '1033', '2019-05-19 00:00:00')") ;
+        } catch(Exception e){
+            System.out.println("ERROR " + e);
         }
 
 
-
+        for (int i = 0; i < textfield.size(); i++) {
+            System.out.println(textfield.get(i));
+        }
     }
     @FXML
     private void goBack() throws Exception {
