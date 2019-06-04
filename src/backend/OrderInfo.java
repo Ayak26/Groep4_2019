@@ -4,10 +4,9 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class OrderInfo {
     public SimpleStringProperty id;
-
+    public SimpleStringProperty alpha = new SimpleStringProperty("Alpha");
     public OrderInfo(String id){
         this.id = new SimpleStringProperty(id);
-
     }
 
     public String getId() {
@@ -21,4 +20,5 @@ public class OrderInfo {
     public void setId(String id) {
         this.id.set(id);
     }
+
 }

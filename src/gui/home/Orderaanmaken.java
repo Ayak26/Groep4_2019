@@ -88,7 +88,7 @@ public class Orderaanmaken  implements Initializable {
             }
 
             int maxIDplus = maxID + 1;
-          //  Database.executeUpdate("INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, Comments, DeliveryInstructions, InternalComments, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES ('"+maxIDplus+"', '804',  '1033', '1033', '1033', NULL, '2019-05-26', '2019-05-19',  NULL, '1', NULL, NULL, NULL, NULL, '1033', '2019-05-19 00:00:00')") ;
+            Database.executeUpdate("INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, Comments, DeliveryInstructions, InternalComments, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES ('"+maxIDplus+"', '804',  '1033', '1033', '1033', NULL, '2019-05-26', '2019-05-19',  NULL, '1', NULL, NULL, NULL, NULL, '1033', '2019-05-19 00:00:00')") ;
 
 
             ResultSet rs3 = Database.executeQuery("SELECT OrderLineID from orderlines Order By OrderID DESC");
@@ -100,7 +100,7 @@ public class Orderaanmaken  implements Initializable {
             int MaxIDcount = MaxIDlines + 1;
             System.out.println("LINES: " + MaxIDcount);
             for (int i = 0; i < textfield.size(); i++) {
-                Database.executeUpdate("INSERT INTO orderlines (OrderLineID, OrderID, StockItemID, Description, PackageTypeID, Quantity, UnitPrice, TaxRate, PickedQuantity, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES ('"+MaxIDcount+"', '100005', '"+textfield.get(i)+"', 'n/a', '2', '2', NULL, '15.000', '2', NULL, '1033', '2019-05-19 00:00:00'), ('300003', '100001', '4', 'n/a', '2', '2', NULL, '15.000', '1', NULL, '1033', '2019-05-19 00:00:00')");
+                Database.executeUpdate("INSERT INTO orderlines (OrderLineID, OrderID, StockItemID, Description, PackageTypeID, Quantity, UnitPrice, TaxRate, PickedQuantity, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES ('"+MaxIDcount+"', '"+maxIDplus+"', '"+textfield.get(i)+"', 'n/a', '2', '1', NULL, '15.000', '2', NULL, '1033', '2019-05-19 00:00:00')");
                 MaxIDcount++;
                 System.out.println(MaxIDcount);
             }

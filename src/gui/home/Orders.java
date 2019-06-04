@@ -1,5 +1,6 @@
 package gui.home;
 
+import backend.DataModel;
 import backend.Database;
 //import backend.Order;
 import backend.OrderInfo;
@@ -30,7 +31,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static javax.swing.UIManager.getString;
+
 public class Orders implements Initializable {
+
+    ObservableList<OrderInfo> items = FXCollections.observableArrayList();
+    ObservableList<String> stringOrders = FXCollections.observableArrayList();
     @FXML
     private Button home, createorder, alphabtn, betabtn;
     @FXML
@@ -39,6 +45,9 @@ public class Orders implements Initializable {
    private TableView<OrderInfo> table;
     @FXML
     private TableColumn<OrderInfo, String> ordernr;
+
+    @FXML
+    private TableColumn<OrderInfo, String> linerow;
 
 
     @FXML
@@ -64,15 +73,16 @@ public class Orders implements Initializable {
     @FXML
     private void goAlpha() throws Exception{
 
-        Stage stage = (Stage)home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("SortRobot.fxml"));
-        stage.setScene(new Scene(root));
-    }
+        int parsing = Integer.parseInt(table.getSelectionModel().getSelectedItem().getId());
+        DataModel.getInpakrobot1().setOrder(parsing);
+
+
+
+   }
     @FXML
     private void goBeta() throws Exception{
-        Stage stage = (Stage)home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("SortRobot.fxml"));
-        stage.setScene(new Scene(root));
+        int parsing = Integer.parseInt(table.getSelectionModel().getSelectedItem().getId());
+        DataModel.getInpakrobot2().setOrder(parsing);
     }
 
     @FXML
@@ -111,7 +121,7 @@ public class Orders implements Initializable {
         StandardGuiMethods.start_stop(start_stop);
     }
 
-    ObservableList<ModelTable> oblist = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -124,7 +134,6 @@ public class Orders implements Initializable {
 
 
         try{
-           ObservableList<OrderInfo> items = FXCollections.observableArrayList();
             ResultSet rs = Database.executeQuery("SELECT OrderID from orders WHERE PickingCompletedWhen is null");
            while(rs.next()){
                 items.add(new OrderInfo(rs.getString("OrderID")));

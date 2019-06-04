@@ -14,9 +14,14 @@ public class PackingRobot extends Robot {
         boxes[2] = new Box(5, "three");
     }
 
-    public boolean setOrder(int order_id) {
+    public void setOrder(int order_id) {
         Order order = new Order(order_id);
-        return packOrder(order);
+
+        if(packOrder(order)) {
+            System.out.println("gelukt");
+        } else {
+            System.out.println("past niet");
+        }
     }
 
     public void setBoxes(int size) {
