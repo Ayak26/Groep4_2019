@@ -17,7 +17,6 @@ public class Main extends Application  {
 
 
     CameraThread cameraThread;
-    LogoThread logoThread;
     @Override
     public void start(Stage primaryStage) throws Exception{
         Database.openConnection();
@@ -29,8 +28,6 @@ public class Main extends Application  {
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        logoThread = new LogoThread();
-        logoThread.start();
         DataModel datamodel = new DataModel();
         DataModel.getSorteerrobot1().openConnection();
         DataModel.getInpakrobot1().openConnection();
@@ -48,7 +45,6 @@ public class Main extends Application  {
     public void stop() throws Exception {
         super.stop();
         cameraThread.stop();
-        logoThread.stop();
         DataModel.getSorteerrobot1().closeConnection();
         DataModel.getInpakrobot1().closeConnection();
         Database.closeConnection();
