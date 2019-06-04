@@ -1,5 +1,6 @@
 package gui.home;
 
+import backend.Box;
 import backend.DataModel;
 import backend.Database;
 //import backend.Order;
@@ -38,7 +39,7 @@ public class Orders implements Initializable {
     ObservableList<OrderInfo> items = FXCollections.observableArrayList();
     ObservableList<String> stringOrders = FXCollections.observableArrayList();
     @FXML
-    private Button home, createorder, alphabtn, betabtn;
+    private Button home, createorder;
     @FXML
     private ImageView start_stop;
     @FXML
@@ -46,16 +47,10 @@ public class Orders implements Initializable {
     @FXML
     private TableColumn<OrderInfo, String> ordernr;
 
-    @FXML
-    private TableColumn<OrderInfo, String> linerow;
 
     @FXML
     private Label articletext;
 
-    @FXML
-    private TableView<OrderInfo> articletable;
-    @FXML
-    private TableColumn<OrderInfo, String> articlenr;
 
     @FXML
     private Label idtext;
@@ -65,10 +60,7 @@ public class Orders implements Initializable {
 
     @FXML
     private Label alphaline;
- //   @FXML
-//    private TableView<OrderInfo> table;
-    //@FXML
-   // private TableColumn<OrderInfo, String> ordernr;
+
  private static String Number;
  private static String Number2;
 
@@ -78,6 +70,19 @@ public class Orders implements Initializable {
         Stage stage = (Stage)home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         stage.setScene(new Scene(root));
+    }
+    @FXML
+    private void goEmptyRow() throws Exception {
+        Box[] d = DataModel.getInpakrobot1().getBoxes();
+        Box[] b = DataModel.getInpakrobot2().getBoxes();
+        d[0].content.clear();
+        d[1].content.clear();
+        d[2].content.clear();
+        b[0].content.clear();
+        b[1].content.clear();
+        b[2].content.clear();
+        alphaline.setText("");
+        betaline.setText("");
     }
     @FXML
     private void goAlpha() throws Exception{
@@ -107,6 +112,19 @@ public class Orders implements Initializable {
         }
     }
 
+    @FXML
+    private void goDelete() throws Exception {
+        try {
+            Database.createStatement();
+            Database.executeUpdate("DELETE FROM orders WHERE OrderID = " + table.getSelectionModel().getSelectedItem().getId());
+            Database.closeStatement();
+        } catch (Exception e){
+            System.out.println("NOPE: " + e);
+        }
+        Stage stage = (Stage)home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("Orders.fxml"));
+        stage.setScene(new Scene(root));
+    }
     @FXML
     private void goCreateorder() throws Exception {
         Stage stage = (Stage)createorder.getScene().getWindow();
@@ -172,10 +190,7 @@ public class Orders implements Initializable {
             table.setItems(items);
            Database.closeStatement();
 
-//            for (ModelTable m: ModelTable){
-//                col_id.setCellValueFactory(new PropertyValueFactory<>(m.id));
-//
-//            }
+
 
                 
 
@@ -185,8 +200,6 @@ public class Orders implements Initializable {
         }
 
 
-        //col_id.setCellValueFactory(new PropertyValueFactory<>("OrderID"));
-        //table.setItems(data);
 
     }
 }

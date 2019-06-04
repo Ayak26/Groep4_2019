@@ -6,6 +6,7 @@ public class PackingRobot extends Robot {
     private Order order;
     private Box[] boxes;
 
+
     public Order getOrder(){
         return order;
     }
