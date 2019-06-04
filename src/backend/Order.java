@@ -8,15 +8,19 @@ public class Order {
     private int orderNr;
     private boolean packed;
     private Article[] article_list;
+    private ArrayList<Integer> amount_list = new ArrayList<>();
 
     public Order(int Orderid) {
         orderNr = Orderid;
         packed = false;
         Database.openConnection();
         Database.createStatement();
-        ResultSet rs = Database.executeQuery("SELECT StockItemID, Quantity FROM orderlines WHERE OrderID = " + orderNr);
+        ResultSet rs = Database.executeQuery("SELECT ols.StockItemID, Quantity FROM orderlines AS ols \n" +
+                "JOIN stockitems AS sis ON sis.StockItemID = ols.StockItemID\n" +
+                "WHERE OrderID = " + orderNr + "\n" +
+                "ORDER BY size DESC");
         ArrayList<Integer> id_list = new ArrayList<>();
-        ArrayList<Integer> amount_list = new ArrayList<>();
+
         try {
             while (rs.next()) {
                 id_list.add(rs.getInt(1));
@@ -41,15 +45,6 @@ public class Order {
         Database.openConnection();
 
     }
-    //Test
-    public Order() {
-        orderNr = 0;
-        packed = false;
-        article_list = new Article[3];
-        article_list[0] = new Article(1);
-        article_list[1] = new Article(2);
-        article_list[2] = new Article(3);
-    }
 
     @Override
     public String toString() {
@@ -63,6 +58,9 @@ public class Order {
         return article_list;
     }
 
+    /**
+     * print the order and all of its articles to the console
+     */
     public void print() {
         System.out.println("backend.Order nummer: " + orderNr);
         for (Article article : article_list) {

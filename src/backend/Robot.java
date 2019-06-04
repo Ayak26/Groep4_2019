@@ -6,9 +6,10 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.io.IOException;
 
-public abstract class Robot {
+public class Robot {
     private SerialPort sp;
     protected boolean on;
+    private String type;
 
     public Robot(String port) {
         sp = SerialPort.getCommPort(port);
@@ -47,6 +48,7 @@ public abstract class Robot {
     }
 
     public void closeConnection() {
+        sendCommand("CLOSE");
         sp.removeDataListener();
         if (sp.closePort()) {
             System.out.println("Port is closed :)");
@@ -71,27 +73,20 @@ public abstract class Robot {
         }
     }
 
-    private void readCommand(String command) {
-        if (command.equals("CONNECTED\r")) {
-            System.out.println("verbinding gemaakt");
+    protected void readCommand(String command) {
+        if (command.equals("SORTING\r")) {
+            type = "Sorting";
         }
-        if (command.equals("AMON\r")) {
-            System.out.println("Robot is aan");
+        if (command.equals("PACKING\r")) {
+            type = "Packing";
         }
-        if (command.equals("AMOFF\r")) {
-            System.out.println("Robot is uit");
-        }
-        if (command.equals("S1:OPEN\r")) {
-            System.out.println("Servo 1 is open");
-        }
-        if (command.equals("S1:CLOSED\r")) {
-            System.out.println("Servo 1 is dicht");
-        }
-        if (command.equals("S2:OPEN\r")) {
-            System.out.println("Servo 2 is open");
-        }
-        if (command.equals("S2:CLOSED\r")) {
-            System.out.println("Servo 2 is dicht");
-        }
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public SerialPort getSp() {
+        return sp;
     }
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Orders">
+    <children>
+        <TableView id="table" fx:id="table" layoutX="117.0" layoutY="124.0" onMouseClicked="#clickItem" prefHeight="200.0" prefWidth="247.0">
+            <columns>
+                <TableColumn id="col_oid" fx:id="ordernr" prefWidth="75.0" text="Order nr" />
+            </columns>
+        </TableView>
+        <Button fx:id="createorder" layoutX="147.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#goCreateorder" text="Order aanmaken" />
+        <Label layoutX="190.0" layoutY="25.0" text="Product kiezen" />
+        <Label fx:id="idtext" layoutX="372.0" layoutY="150.0" text="ID:" visible="false" />
+        <Label layoutX="404.0" layoutY="230.0" />
+        <Button fx:id="alphabtn" layoutX="40.0" layoutY="399.0" mnemonicParsing="false" onMouseClicked="#goAlpha" text="Alpha" />
+        <Button fx:id="betabtn" layoutX="340.0" layoutY="399.0" mnemonicParsing="false" onMouseClicked="#goBeta" text="Beta" />
+        <Label layoutX="372.0" layoutY="24.0" text="Alpha lijn:" />
+        <Label layoutX="487.0" layoutY="24.0" text="Beta lijn:" />
+        <Label fx:id="alphaline" layoutX="372.0" layoutY="67.0" />
+        <Label fx:id="betaline" layoutX="487.0" layoutY="67.0" />
+        <Label layoutX="372.0" layoutY="134.0" text="Artikelen" />
+        <Label fx:id="articletext" layoutX="372.0" layoutY="174.0" />
+      <Button fx:id="refresh" layoutX="35.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
+        <Button fx:id="delete" layoutX="169.0" layoutY="399.0" mnemonicParsing="false" onMouseClicked="#goDelete" text="Verwijderen" />
+        <Button fx:id="emptyRow" layoutX="515.0" layoutY="399.0" mnemonicParsing="false" onMouseClicked="#goEmptyRow" text="Leeg lijnen" />
+    </children>
+</Pane>

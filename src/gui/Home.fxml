@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Home">
+    <children>
+        <Rectangle fx:id="Laser" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="82.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
+        <Line layoutX="226.0" layoutY="255.0" startX="-100.0" />
+        <Rectangle fx:id="SortServo1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="227.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
+        <Line layoutX="371.0" layoutY="255.0" startX="-100.0" />
+        <Rectangle fx:id="SortServo2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="371.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
+        <Rectangle fx:id="Pack1Servo2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="227.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
+        <Rectangle fx:id="Pack2Servo1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="371.0" layoutY="323.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
+        <Button fx:id="Detecteren" layoutX="202.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#detecteren" text="Detecteren" />
+        <Button layoutX="451.0" layoutY="239.0" mnemonicParsing="false" text="Splitsing" />
+        <ImageView fx:id="detectimage" fitHeight="93.0" fitWidth="133.0" layoutX="173.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="Pack1Servo1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="227.0" layoutY="135.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
+      <Line layoutX="274.0" layoutY="206.0" rotate="90.0" startX="-50.0" />
+      <Line layoutX="274.0" layoutY="110.0" rotate="90.0" startX="-50.0" />
+      <Line layoutX="418.0" layoutY="298.0" rotate="90.0" startX="-50.0" />
+      <Line layoutX="418.0" layoutY="395.0" rotate="90.0" startX="-50.0" />
+      <Rectangle fx:id="Pack2Servo2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="372.0" layoutY="421.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
+    </children>
+</Pane>

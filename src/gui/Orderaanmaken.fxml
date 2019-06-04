@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Orderaanmaken">
+   <children>
+      <TableView fx:id="createtable" layoutX="206.0" layoutY="106.0" prefHeight="200.0" prefWidth="227.0">
+        <columns>
+          <TableColumn fx:id="articlenr" prefWidth="75.0" text="Article" />
+        </columns>
+      </TableView>
+      <Button fx:id="addarticle" layoutX="206.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#addArticlebtn" text="Add article" />
+      <Label layoutX="286.0" layoutY="32.0" text="Create order" />
+      <Button fx:id="complete" layoutX="365.0" layoutY="317.0" mnemonicParsing="false" text="Complete" />
+      <Label fx:id="articletext" layoutX="603.0" layoutY="131.0" text="Artikelen:" visible="false" />
+   </children>
+</Pane>
