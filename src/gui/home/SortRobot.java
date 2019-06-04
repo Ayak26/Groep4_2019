@@ -18,6 +18,8 @@ import java.util.ResourceBundle;
 
 public class SortRobot implements Initializable {
 
+    @FXML
+    protected Rectangle r1;
 
     @FXML
     private Button home, Detecteren, refresh;
@@ -28,20 +30,10 @@ public class SortRobot implements Initializable {
     @FXML
     private ImageView start_stop, detectimage;
 
-    @FXML
-    private static Rectangle r1;
 
     @FXML
     private Image camimage;
 
-    public Rectangle getRect(){
-        return r1;
-    }
-
-    public static void setRect(Rectangle r2){
-        System.out.println("CHECK!");
-        r1 = r2;
-    }
     @FXML
     private void goHome() throws Exception {
         Stage stage = (Stage)home.getScene().getWindow();
@@ -94,6 +86,32 @@ public class SortRobot implements Initializable {
             start_stop.setImage(new Image("file:assets/start.png"));
         }
 
+       if(Main.servo1){
+           System.out.println("YELLOW!");
+           r1.setFill(Color.YELLOW);
+       } else{
+           System.out.println("BLUE");
+           r1.setFill(Color.BLUE);
+       }
 
     }
+
+    public static void setSensor(boolean sensor) {
+        Main.sensor = sensor;
+    }
+
+    public static void setServo1(boolean servo1) {
+        Main.servo1 = servo1;
+    }
+
+    public static void setServo2(boolean servo2) {
+        Main.servo2 = servo2;
+    }
+
+    public SortRobot(){
+
+    }
+
+
+
 }

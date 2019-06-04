@@ -3,6 +3,7 @@ package backend;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import gui.home.Main;
 import gui.home.SortRobot;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
@@ -93,21 +94,19 @@ public abstract class Robot {
         }
         if (command.equals("S1:OPEN\r")) {
             System.out.println("Servo 1 is open");
-            r1.setFill(Color.YELLOW);
-            SortRobot.setRect(r1);
+            Main.servo1 = true;
         }
         if (command.equals("S1:CLOSED\r")) {
             System.out.println("Servo 1 is dicht");
-            servo1 = false;
+            SortRobot.setServo1(false);
         }
         if (command.equals("S2:OPEN\r")) {
-
             System.out.println("Servo 2 is open");
-            servo2 = true;
+            SortRobot.setServo2(true);
         }
         if (command.equals("S2:CLOSED\r")) {
             System.out.println("Servo 2 is dicht");
-            servo2 = false;
+            SortRobot.setServo2(false);
         }
     }
 }

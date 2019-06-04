@@ -69,7 +69,8 @@ public class Orders implements Initializable {
 //    private TableView<OrderInfo> table;
     //@FXML
    // private TableColumn<OrderInfo, String> ordernr;
-
+ private static String Number;
+ private static String Number2;
 
 
     @FXML
@@ -84,7 +85,8 @@ public class Orders implements Initializable {
         DataModel.getInpakrobot1().setOrder(parsing);
 
         if(DataModel.getInpakrobot1().getOrder() != null){
-            alphaline.setText(table.getSelectionModel().getSelectedItem().getId());
+            Number = table.getSelectionModel().getSelectedItem().getId();
+            alphaline.setText(Number);
         } else{
             alphaline.setText("");
         }
@@ -97,7 +99,8 @@ public class Orders implements Initializable {
         int parsing = Integer.parseInt(table.getSelectionModel().getSelectedItem().getId());
         DataModel.getInpakrobot2().setOrder(parsing);
         if(DataModel.getInpakrobot2().getOrder() != null) {
-            betaline.setText(table.getSelectionModel().getSelectedItem().getId());
+            Number2 = table.getSelectionModel().getSelectedItem().getId();
+            betaline.setText(Number2);
         } else{
             betaline.setText("");
 
@@ -149,6 +152,8 @@ public class Orders implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        alphaline.setText(Number);
+        betaline.setText(Number2);
 
         if(Main.on) {
             start_stop.setImage(new Image("file:assets/stop.png"));

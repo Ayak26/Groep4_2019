@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class Orderaanmaken  implements Initializable {
+public class Orderaanmaken implements Initializable {
     @FXML
     private Button home, back, addarticle, complete;
 
@@ -48,38 +48,40 @@ public class Orderaanmaken  implements Initializable {
 
     @FXML
     private Label articletext;
+
     @FXML
     private void goHome() throws Exception {
-        Stage stage = (Stage)home.getScene().getWindow();
+        Stage stage = (Stage) home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         stage.setScene(new Scene(root));
     }
 
-     private ArrayList<String> newarticles = new ArrayList<>();
-   // ObservableList<String> newarticles = FXCollections.observableArrayList();
+    private ArrayList<String> newarticles = new ArrayList<>();
+    // ObservableList<String> newarticles = FXCollections.observableArrayList();
 
     ObservableList<OrderInfo> items = FXCollections.observableArrayList();
 
     @FXML
-    private void addArticlebtn() throws Exception{
+    private void addArticlebtn() throws Exception {
         newarticles.add(createtable.getSelectionModel().getSelectedItem().getId());
         String textfield = "\n";
 
         for (int i = 0; i < newarticles.size(); i++) {
             System.out.println(newarticles.get(i));
             textfield += newarticles.get(i) + "\n";
-          //    selectarticletable.setItems(newarticles);
-          //  selectarticlenr.setCellValueFactory(new PropertyValueFactory<String, String>("articlenr"));
+            //    selectarticletable.setItems(newarticles);
+            //  selectarticlenr.setCellValueFactory(new PropertyValueFactory<String, String>("articlenr"));
         }
         articletext.setVisible(true);
         articletext.setText(textfield);
-       final String fieldtext = textfield;
+        final String fieldtext = textfield;
         complete.setOnAction(actionEvent -> insertToDatabase(newarticles));
 
 
     }
 
     private void insertToDatabase(ArrayList textfield) {
+        Database.createStatement();
         try {
             int maxID = 0;
             ResultSet rs2 = Database.executeQuery("SELECT OrderID from orders Order By OrderID DESC");
@@ -88,39 +90,39 @@ public class Orderaanmaken  implements Initializable {
             }
 
             int maxIDplus = maxID + 1;
-            Database.executeUpdate("INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, Comments, DeliveryInstructions, InternalComments, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES ('"+maxIDplus+"', '804',  '1033', '1033', '1033', NULL, '2019-05-26', '2019-05-19',  NULL, '1', NULL, NULL, NULL, NULL, '1033', '2019-05-19 00:00:00')") ;
+            Database.executeUpdate("INSERT INTO orders (OrderID, CustomerID, SalespersonPersonID, PickedByPersonID, ContactPersonID, BackorderOrderID, OrderDate, ExpectedDeliveryDate, CustomerPurchaseOrderNumber, IsUndersupplyBackordered, Comments, DeliveryInstructions, InternalComments, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES ('" + maxIDplus + "', '804',  '1033', '1033', '1033', NULL, '2019-05-26', '2019-05-19',  NULL, '1', NULL, NULL, NULL, NULL, '1033', '2019-05-19 00:00:00')");
 
 
             ResultSet rs3 = Database.executeQuery("SELECT OrderLineID from orderlines Order By OrderID DESC");
             int MaxIDlines = 0;
-            if(rs3.next()){
+            if (rs3.next()) {
                 MaxIDlines += rs3.getInt("OrderLineID");
             }
 
             int MaxIDcount = MaxIDlines + 1;
             System.out.println("LINES: " + MaxIDcount);
             for (int i = 0; i < textfield.size(); i++) {
-                Database.executeUpdate("INSERT INTO orderlines (OrderLineID, OrderID, StockItemID, Description, PackageTypeID, Quantity, UnitPrice, TaxRate, PickedQuantity, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES ('"+MaxIDcount+"', '"+maxIDplus+"', '"+textfield.get(i)+"', 'n/a', '2', '1', NULL, '15.000', '2', NULL, '1033', '2019-05-19 00:00:00')");
+                Database.executeUpdate("INSERT INTO orderlines (OrderLineID, OrderID, StockItemID, Description, PackageTypeID, Quantity, UnitPrice, TaxRate, PickedQuantity, PickingCompletedWhen, LastEditedBy, LastEditedWhen) VALUES ('" + MaxIDcount + "', '" + maxIDplus + "', '" + textfield.get(i) + "', 'n/a', '2', '1', NULL, '15.000', '2', NULL, '1033', '2019-05-19 00:00:00')");
                 MaxIDcount++;
                 System.out.println(MaxIDcount);
             }
 
-
-        } catch(Exception e){
+            Database.closeStatement();
+        } catch (Exception e) {
             System.out.println("ERROR " + e);
         }
 
 
-
     }
+
     @FXML
     private void goBack() throws Exception {
-        Stage stage = (Stage)back.getScene().getWindow();
+        Stage stage = (Stage) back.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("Orders.fxml"));
         stage.setScene(new Scene(root));
     }
 
-    private void addArticle() throws Exception{
+    private void addArticle() throws Exception {
         System.out.println("SD");
     }
 
@@ -128,6 +130,7 @@ public class Orderaanmaken  implements Initializable {
     private void start_stop() {
         StandardGuiMethods.start_stop(start_stop);
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -145,7 +148,8 @@ public class Orderaanmaken  implements Initializable {
             }
             createtable.setItems(items);
             Database.closeStatement();
-        } catch( Exception E) {
+        } catch (Exception E) {
             System.out.println("byebye");
         }
-    }}
+    }
+}
