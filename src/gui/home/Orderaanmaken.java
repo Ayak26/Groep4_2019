@@ -73,7 +73,7 @@ public class Orderaanmaken  implements Initializable {
         }
         articletext.setVisible(true);
         articletext.setText(textfield);
-        final String fieldtext = textfield;
+       final String fieldtext = textfield;
         complete.setOnAction(actionEvent -> insertToDatabase(newarticles));
 
 
@@ -137,13 +137,14 @@ public class Orderaanmaken  implements Initializable {
             start_stop.setImage(new Image("file:assets/start.png"));
         }
         try {
+            Database.createStatement();
             ResultSet rs = Database.executeQuery("SELECT StockItemID from stockitems");
             while (rs.next()) {
                 items.add(new OrderInfo(rs.getString("StockItemId")));
                 articlenr.setCellValueFactory(new PropertyValueFactory<OrderInfo, String>("id"));
             }
             createtable.setItems(items);
-
+            Database.closeStatement();
         } catch( Exception E) {
             System.out.println("byebye");
         }

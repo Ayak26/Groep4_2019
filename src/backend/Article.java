@@ -9,7 +9,6 @@ public class Article {
     private int size;
     private boolean packed;
 
-
     public Article(int id) {
         this.id = id;
 

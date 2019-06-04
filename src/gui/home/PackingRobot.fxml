@@ -8,7 +8,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.home.SortRobot">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="182.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
+        <Rectangle fx:id="r1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="182.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
         <Line layoutX="326.0" layoutY="255.0" startX="-100.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="46.0" layoutX="327.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="43.0" />
         <Line layoutX="471.0" layoutY="255.0" startX="-100.0" />
@@ -22,6 +22,6 @@
         <Button layoutX="551.0" layoutY="239.0" mnemonicParsing="false" text="Splitsing" />
         <ImageView fx:id="start_stop" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="390.0" onMouseClicked="#start_stop" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="detectimage" fitHeight="93.0" fitWidth="133.0" layoutX="283.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="refresh" onMouseClicked="#refresh" layoutX="316.0" layoutY="93.0" mnemonicParsing="false" text="Refresh" visible="false" />
+      <Button fx:id="refresh" layoutX="316.0" layoutY="93.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" visible="false" />
     </children>
 </Pane>

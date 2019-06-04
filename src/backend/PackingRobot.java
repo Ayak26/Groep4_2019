@@ -2,9 +2,13 @@ package backend;
 
 
 public class PackingRobot extends Robot {
-    private int order_id;
 
+    private Order order;
     private Box[] boxes;
+
+    public Order getOrder(){
+        return order;
+    }
 
     public PackingRobot(String port) {
         super(port);
@@ -15,11 +19,16 @@ public class PackingRobot extends Robot {
     }
 
     public void setOrder(int order_id) {
-        Order order = new Order(order_id);
+        System.out.println("order laden");
+        order = new Order(order_id);
 
-        if(packOrder(order)) {
+        if (packOrder(order)) {
             System.out.println("gelukt");
         } else {
+            order = null;
+            boxes[0].content.clear();
+            boxes[1].content.clear();
+            boxes[2].content.clear();
             System.out.println("past niet");
         }
     }

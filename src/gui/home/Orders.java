@@ -49,6 +49,8 @@ public class Orders implements Initializable {
     @FXML
     private TableColumn<OrderInfo, String> linerow;
 
+    @FXML
+    private Label articletext;
 
     @FXML
     private TableView<OrderInfo> articletable;
@@ -57,6 +59,12 @@ public class Orders implements Initializable {
 
     @FXML
     private Label idtext;
+
+    @FXML
+    private Label betaline;
+
+    @FXML
+    private Label alphaline;
  //   @FXML
 //    private TableView<OrderInfo> table;
     //@FXML
@@ -72,9 +80,14 @@ public class Orders implements Initializable {
     }
     @FXML
     private void goAlpha() throws Exception{
-
         int parsing = Integer.parseInt(table.getSelectionModel().getSelectedItem().getId());
         DataModel.getInpakrobot1().setOrder(parsing);
+
+        if(DataModel.getInpakrobot1().getOrder() != null){
+            alphaline.setText(table.getSelectionModel().getSelectedItem().getId());
+        } else{
+            alphaline.setText("");
+        }
 
 
 
@@ -83,6 +96,12 @@ public class Orders implements Initializable {
     private void goBeta() throws Exception{
         int parsing = Integer.parseInt(table.getSelectionModel().getSelectedItem().getId());
         DataModel.getInpakrobot2().setOrder(parsing);
+        if(DataModel.getInpakrobot2().getOrder() != null) {
+            betaline.setText(table.getSelectionModel().getSelectedItem().getId());
+        } else{
+            betaline.setText("");
+
+        }
     }
 
     @FXML
@@ -103,16 +122,21 @@ public class Orders implements Initializable {
             ObservableList<OrderInfo> article = FXCollections.observableArrayList();
             Database.createStatement();
             ResultSet rs = Database.executeQuery("SELECT StockItemID FROM orderlines WHERE OrderID =" + table.getSelectionModel().getSelectedItem().getId()) ;
-            try {
-            while(rs.next()){
-                article.add(new OrderInfo(rs.getString("StockItemID")));
-                articlenr.setCellValueFactory(new PropertyValueFactory<OrderInfo, String>("id"));
+           try {
+               ArrayList<String> articlesarray = new ArrayList<String>();
+              while(rs.next()){
+                  articlesarray.add(rs.getString("StockItemID"));
                 }
-            articletable.setItems(article);
-                }catch(Exception f){
-                System.out.println("ERROR");
-
-            }
+              String textfield = "";
+              for(int i = 0; i < articlesarray.size(); i++){
+                  System.out.println(articlesarray.get(i));
+                  textfield += articlesarray.get(i) + "\n";
+              }
+              articletext.setText(textfield);
+              Database.closeStatement();
+             }catch(Exception f){
+              System.out.println("ERROR");
+           }
 
         }
     }
@@ -134,12 +158,14 @@ public class Orders implements Initializable {
 
 
         try{
+            Database.createStatement();
             ResultSet rs = Database.executeQuery("SELECT OrderID from orders WHERE PickingCompletedWhen is null");
            while(rs.next()){
                 items.add(new OrderInfo(rs.getString("OrderID")));
                 ordernr.setCellValueFactory(new PropertyValueFactory<OrderInfo, String>("id"));
             }
             table.setItems(items);
+           Database.closeStatement();
 
 //            for (ModelTable m: ModelTable){
 //                col_id.setCellValueFactory(new PropertyValueFactory<>(m.id));

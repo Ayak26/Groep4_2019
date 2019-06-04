@@ -1,5 +1,6 @@
 package gui.home;
 
+import backend.Robot;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,12 +9,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class SortRobot implements Initializable{
+public class SortRobot implements Initializable {
+
 
     @FXML
     private Button home, Detecteren, refresh;
@@ -25,8 +29,19 @@ public class SortRobot implements Initializable{
     private ImageView start_stop, detectimage;
 
     @FXML
+    private static Rectangle r1;
+
+    @FXML
     private Image camimage;
 
+    public Rectangle getRect(){
+        return r1;
+    }
+
+    public static void setRect(Rectangle r2){
+        System.out.println("CHECK!");
+        r1 = r2;
+    }
     @FXML
     private void goHome() throws Exception {
         Stage stage = (Stage)home.getScene().getWindow();
@@ -78,5 +93,7 @@ public class SortRobot implements Initializable{
         } else {
             start_stop.setImage(new Image("file:assets/start.png"));
         }
+
+
     }
 }

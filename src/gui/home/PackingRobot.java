@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -26,6 +28,8 @@ public class PackingRobot implements Initializable{
     private ImageView start_stop, detectimage;
 
     @FXML
+    private Rectangle r1;
+    @FXML
     private Image camimage;
 
 
@@ -41,6 +45,7 @@ public class PackingRobot implements Initializable{
     @FXML
     private void start_stop() {
         StandardGuiMethods.start_stop(start_stop);
+        r1.setFill(Color.YELLOW);
     }
 
     @FXML

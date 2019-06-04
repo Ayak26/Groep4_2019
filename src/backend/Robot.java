@@ -3,12 +3,21 @@ package backend;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import gui.home.SortRobot;
+import javafx.fxml.FXML;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
 public abstract class Robot {
     private SerialPort sp;
     protected boolean on;
+    public boolean servo1 = false;
+    public boolean servo2 = false;
+
+    @FXML
+    private Rectangle r1;
 
     public Robot(String port) {
         sp = SerialPort.getCommPort(port);
@@ -84,15 +93,21 @@ public abstract class Robot {
         }
         if (command.equals("S1:OPEN\r")) {
             System.out.println("Servo 1 is open");
+            r1.setFill(Color.YELLOW);
+            SortRobot.setRect(r1);
         }
         if (command.equals("S1:CLOSED\r")) {
             System.out.println("Servo 1 is dicht");
+            servo1 = false;
         }
         if (command.equals("S2:OPEN\r")) {
+
             System.out.println("Servo 2 is open");
+            servo2 = true;
         }
         if (command.equals("S2:CLOSED\r")) {
             System.out.println("Servo 2 is dicht");
+            servo2 = false;
         }
     }
 }
